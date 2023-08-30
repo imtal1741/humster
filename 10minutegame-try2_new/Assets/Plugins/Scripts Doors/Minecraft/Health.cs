@@ -79,7 +79,11 @@ public class Health : MonoBehaviour
             playerRespawn.BlackBorders_anim.SetBool("Close", true);
             yield return new WaitForSeconds(0.6f);
 
-            yandexSDK.ShowAdvert();
+
+
+            #if !UNITY_EDITOR
+                yandexSDK.ShowAdvert();
+            #endif
 
 
 
@@ -197,7 +201,11 @@ public class Health : MonoBehaviour
 
                 rb.interpolation = RigidbodyInterpolation.Interpolate;
 
-                yandexSDK.ShowAdvert();
+
+                #if !UNITY_EDITOR
+                    yandexSDK.ShowAdvert();
+                #endif
+                
 
                 if (deathTimeline)
                     deathTimeline.SetActive(false);
