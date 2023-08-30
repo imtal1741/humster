@@ -13,6 +13,7 @@ public class LedgeGrab : MonoBehaviour
     public Transform CameraRoot;
     public Transform CameraControls;
     public LayerMask IgnoreLayer;
+    public bool onlyIfForwardMove;
 
     public AudioSource source;
     public AudioClip[] sound_short;
@@ -49,7 +50,7 @@ public class LedgeGrab : MonoBehaviour
                 KillLedgeGrab();
             }
 
-            if (advancedWalkerController.inputY < 0)
+            if (advancedWalkerController.inputY < 0 && onlyIfForwardMove == false)
             {
                 KillLedgeGrab();
             }
@@ -73,14 +74,16 @@ public class LedgeGrab : MonoBehaviour
             {
                 Debug.DrawRay(zPoint, hit_s.point - zPoint, Color.yellow);
 
-                if (advancedWalkerController.inputY > 0)
+                if (advancedWalkerController.inputY > 0 || onlyIfForwardMove == true)
                 {
                     isActive = true;
                     ledgeFollow.transform.position = transform.position;
                     waypoints[0] = new Vector3(hit.point.x, hit_s.point.y, hit.point.z);
                     waypoints[1] = hit_s.point;
                     dir = Vector3.Cross(waypoints[1] - waypoints[0], Vector3.up).normalized;
-                    Debug.DrawRay(transform.position, dir, Color.green, 2);
+                    Debug.DrawRay(waypoints[0], dir, Color.green, 2);
+                    Debug.DrawRay(waypoints[0], Vector3.up, Color.red, 2);
+                    Debug.DrawRay(waypoints[1], Vector3.up, Color.blue, 2);
                     advancedWalkerController.savedLedgeLR = 0;
 
                     float speed = Vector3.Distance(transform.position, waypoints[0]) * 0.6f;

@@ -301,27 +301,45 @@ public class RunnerNumberRun : MonoBehaviour
         isFinish = true;
         canTap = false;
 
+
+        int finishState = nowStateMid;
+        int tempState = Mathf.CeilToInt(Mathf.Abs(nowStateLeft - nowStateRight) / 2) + 1;
+        if (nowStateLeft < nowStateRight)
+        {
+            tempState += nowStateLeft;
+        }
+        else
+        {
+            tempState += nowStateRight;
+        }
+        int afterMergeState = tempState;
+
+
+
         if (isMerge == false)
         {
             if (isAnimate)
             {
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("Split"))
+                {
                     SplitMerge();
+                    finishState = afterMergeState;
+                }
             }
             else
             {
                 SplitMerge();
+                finishState = afterMergeState;
             }
         }
 
         anim.SetBool("Finish", true);
 
-
         for (int i = 0; i < BreakableObjects.Count; i++)
         {
             if (i >= 4)
             {
-                if (i <= nowStateMid)
+                if (i <= finishState)
                 {
                     BreakableObjects[i].gameObject.SetActive(true);
                 }
