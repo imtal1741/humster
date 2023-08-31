@@ -121,7 +121,7 @@ public class RunnerNumberRun : MonoBehaviour
         camOffset = camera.localPosition;
         selfOffset = mainPlayer.localPosition;
 
-        //Application.targetFrameRate = 30;
+        Application.targetFrameRate = 30;
     }
 
     void LateUpdate()
