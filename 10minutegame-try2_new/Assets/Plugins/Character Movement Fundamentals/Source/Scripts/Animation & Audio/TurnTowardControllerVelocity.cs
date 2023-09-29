@@ -16,18 +16,19 @@ namespace CMF
 		Transform parentTransform;
 		Transform tr;
 
-		//Current (local) rotation around the (local) y axis of this gameobject;
-		float currentYRotation = 0f;
+        //Current (local) rotation around the (local) y axis of this gameobject;
+        [HideInInspector] public float currentYRotation = 0f;
+        [HideInInspector] public float factorRot;
 
-		//If the angle between the current and target direction falls below 'fallOffAngle', 'turnSpeed' becomes progressively slower (and eventually approaches '0f');
-		//This adds a smoothing effect to the rotation;
-		float fallOffAngle = 90f;
+        //If the angle between the current and target direction falls below 'fallOffAngle', 'turnSpeed' becomes progressively slower (and eventually approaches '0f');
+        //This adds a smoothing effect to the rotation;
+        float fallOffAngle = 90f;
 
 		//Whether the current controller momentum should be ignored when calculating the new direction;
 		public bool ignoreControllerMomentum = false;
 
-		//Setup;
-		void Start () {
+        //Setup;
+        void Start () {
 			tr = transform;
 			parentTransform = tr.parent;
 
@@ -42,14 +43,14 @@ namespace CMF
 		void LateUpdate () {
 
 			//Get controller velocity;
-			Vector3 _velocity;
+            Vector3 _velocity;
 			if(ignoreControllerMomentum)
 				_velocity = controller.GetMovementVelocity();
 			else
 				_velocity = controller.GetVelocity();
 
-			//Project velocity onto a plane defined by the 'up' direction of the parent transform;
-			_velocity = Vector3.ProjectOnPlane(_velocity, parentTransform.up);
+            //Project velocity onto a plane defined by the 'up' direction of the parent transform;
+            _velocity = Vector3.ProjectOnPlane(_velocity, parentTransform.up);
 
 			float _magnitudeThreshold = 0.001f;
 
@@ -60,8 +61,8 @@ namespace CMF
 			//Normalize velocity direction;
 			_velocity.Normalize();
 
-			//Get current 'forward' vector;
-			Vector3 _currentForward = tr.forward;
+            //Get current 'forward' vector;
+            Vector3 _currentForward = tr.forward;
 
 			//Calculate (signed) angle between velocity and forward direction;
 			float _angleDifference = VectorMath.GetAngle(_currentForward, _velocity, parentTransform.up);
@@ -69,8 +70,8 @@ namespace CMF
 			//Calculate angle factor;
 			float _factor = Mathf.InverseLerp(0f, fallOffAngle, Mathf.Abs(_angleDifference));
 
-			//Calculate this frame's step;
-			float _step = Mathf.Sign(_angleDifference) * _factor * Time.deltaTime * turnSpeed;
+            //Calculate this frame's step;
+            float _step = Mathf.Sign(_angleDifference) * _factor * Time.deltaTime * turnSpeed;
 
 			//Clamp step;
 			if(_angleDifference < 0f && _step < _angleDifference)
@@ -78,8 +79,10 @@ namespace CMF
 			else if(_angleDifference > 0f && _step > _angleDifference)
 				_step = _angleDifference;
 
-			//Add step to current y angle;
-			currentYRotation += _step;
+            factorRot = _step;
+
+            //Add step to current y angle;
+            currentYRotation += _step;
 
 			//Clamp y angle;
 			if(currentYRotation > 360f)

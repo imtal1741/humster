@@ -31,7 +31,7 @@ public class YandexSDK : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void AdvWeapon();
 
-    [Header("If have SetupArena")]
+    [Header("SetupArena")]
     public SetupArena setupArena;
 
     [Header("If have Levels Manager")]
@@ -54,7 +54,12 @@ public class YandexSDK : MonoBehaviour
 
     [Header("If have mobile. Update Joystick Controls || have ShowAdvert")]
     public PlayerRespawn playerRespawn;
+    [Header("Health")]
+    public Health health;
 
+    [Header("need Health")]
+    public bool haveCheckpointsSave;
+    [Header("need PlayerRespawn")]
     public bool haveDifficulty;
 
     [Header("If have Record RunnerNumberRun")]
@@ -68,6 +73,7 @@ public class YandexSDK : MonoBehaviour
     public bool showAdvOnStart;
 
     private float nextAdv;
+    [HideInInspector] public bool nowAdShow;
 
 
     public bool setNowLvlText;
@@ -78,6 +84,9 @@ public class YandexSDK : MonoBehaviour
 	public LeanLocalization leanLocalization;
     public List<string> shortLang = new List<string>();
     public List<string> longName = new List<string>();
+
+
+    public bool screenOrientationLandscape = true;
 
 
     // CrazyGames
@@ -155,13 +164,19 @@ public class YandexSDK : MonoBehaviour
         if (setNowLvlText)
             yield return new WaitForSecondsRealtime(0.25f);
 
-        //GetDeviceSDK(); // Get Device       нужно включить
+        if (screenOrientationLandscape)
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        else
+            Screen.orientation = ScreenOrientation.Portrait;
+
+
+        GetDeviceSDK(); // Get Device       нужно включить
         //GetDeviceSimple();
 
-        //GetDomainSite(); //                 нужно включить
+        GetDomainSite(); //                 нужно включить
 
         SetPlayerInfo();
-		GetLang();
+        GetLang();
 
         //LoadExtern();
 
@@ -277,6 +292,9 @@ public class YandexSDK : MonoBehaviour
         if (playerRespawn && haveDifficulty)
             playerRespawn.UpdateDifficulty(savedDifficulty);
 
+        if (health && haveCheckpointsSave)
+            health.LoadCheckpoint(savedRecord);
+
         if (runnerNumberRun)
         {
             runnerNumberRun.UpdateStat(savedRecord, savedMoney, savedUpgrade_1, savedUpgrade_2, savedSpins);
@@ -301,7 +319,9 @@ public class YandexSDK : MonoBehaviour
 			if (shortLang.Contains(lang))
 				leanLocalization.SetCurrentLanguage(longName[shortLang.IndexOf(lang)]);
 		}
-	}
+        if (openLink)
+            openLink.langName = lang;
+    }
 
     public void ShowAdvert()
     {
@@ -344,6 +364,14 @@ public class YandexSDK : MonoBehaviour
             );
     }
 
+
+
+    public void SetListenerVolume(int x)
+    {
+        nowAdShow = x == 0 ? true : false;
+        AudioListener.volume = x;
+        Time.timeScale = x == 0 ? 0.00000001f : x;
+    }
 
 
 

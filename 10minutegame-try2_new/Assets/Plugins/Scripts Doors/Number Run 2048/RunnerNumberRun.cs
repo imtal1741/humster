@@ -51,6 +51,8 @@ public class RunnerNumberRun : MonoBehaviour
     public TextMeshProUGUI upg_1_priceText;
     int upg_1;
     int upg_1_price;
+    public GameObject TextMaxBefore;
+    public GameObject TextMaxAfter;
 
     [Header("Upgrade 2")]
     public Button upgradeButton2;
@@ -102,6 +104,7 @@ public class RunnerNumberRun : MonoBehaviour
 
     [Header("Finish Glasses")]
     public List<TriggerBonus> BreakableObjects = new List<TriggerBonus>();
+    public float maxYPos;
 
     [Header("Other")]
     public GameObject TapToStartText;
@@ -121,7 +124,7 @@ public class RunnerNumberRun : MonoBehaviour
         camOffset = camera.localPosition;
         selfOffset = mainPlayer.localPosition;
 
-        Application.targetFrameRate = 30;
+        //Application.targetFrameRate = 30;
     }
 
     void LateUpdate()
@@ -133,6 +136,8 @@ public class RunnerNumberRun : MonoBehaviour
         if (canMoveDown)
         {
             mainPlayer.Translate((Vector3.down * 12.5f - new Vector3(0, moveDownAddSpeed, 0)) * Time.deltaTime, Space.World);
+
+            mainPlayer.transform.position = new Vector3(mainPlayer.transform.position.x, mainPlayer.position.y > maxYPos ? mainPlayer.position.y : maxYPos, mainPlayer.transform.position.z);
         }
 
 
@@ -245,8 +250,10 @@ public class RunnerNumberRun : MonoBehaviour
         if (nowStateMid >= 12)
         {
             upgradeButton.interactable = false;
-            nowStateText.text = "MAX";
-            nextStateText.text = "MAX";
+            nowStateText.gameObject.SetActive(false);
+            nextStateText.gameObject.SetActive(false);
+            TextMaxBefore.SetActive(true);
+            TextMaxAfter.SetActive(true);
         }
         else
         {
@@ -254,8 +261,13 @@ public class RunnerNumberRun : MonoBehaviour
 
             nowStateText.text = MidNum[nowStateMid].name;
             nextStateText.text = MidNum[nowStateMid + 1].name;
+
+            nowStateText.gameObject.SetActive(true);
+            nextStateText.gameObject.SetActive(true);
+            TextMaxBefore.SetActive(false);
+            TextMaxAfter.SetActive(false);
         }
-        upg_1_price = Mathf.RoundToInt(2500 * Mathf.Pow(1.15f, upg_1));
+        upg_1_price = Mathf.RoundToInt(4500 * Mathf.Pow(1.15f, upg_1));
         upg_1_priceText.text = upg_1_price.ToString();
         if (balance < upg_1_price)
         {
@@ -344,6 +356,9 @@ public class RunnerNumberRun : MonoBehaviour
                     BreakableObjects[i].gameObject.SetActive(true);
                 }
             }
+
+            if (i == finishState)
+                maxYPos = BreakableObjects[i].transform.position.y;
         }
 
     }
@@ -608,7 +623,7 @@ public class RunnerNumberRun : MonoBehaviour
         canMoveDown = false;
         confetti.SetActive(true);
 
-        int reward = Mathf.RoundToInt((nowStateMid + 1) * upg_2 * 32);
+        int reward = Mathf.RoundToInt((nowStateMid + 1) * upg_2 * 120);
         balance += reward;
         spins++;
         level++;

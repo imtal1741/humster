@@ -16,6 +16,7 @@ namespace CMF
         protected CharacterInput characterInput;
         protected PlayerRespawn playerRespawn;
         protected CeilingDetector ceilingDetector;
+        protected TurnTowardControllerVelocity turnTowardControllerVelocity;
         protected LedgeGrab ledgeGrab;
 
         public FP_Input mobile_Input;
@@ -30,7 +31,8 @@ namespace CMF
         public Animator anim;
         float movX;
         float movY;
-        [HideInInspector] public float savedLedgeLR;
+        [HideInInspector] public Vector3 LedgeVector;
+        [HideInInspector] public float LedgeAngle;
 
         [HideInInspector] public Transform lastTransform;
 
@@ -38,6 +40,7 @@ namespace CMF
         public float movementSpeed = 7f;
 
         //Movement smooth;
+        public bool moveSmooth;
         public float movementSmooth = 0.1f;
         Vector3 smoothDampVel;
 
@@ -65,8 +68,8 @@ namespace CMF
         //Saved velocity from last frame;
         Vector3 savedVelocity = Vector3.zero;
 
-		//Saved horizontal movement velocity from last frame;
-		Vector3 savedMovementVelocity = Vector3.zero;
+        //Saved horizontal movement velocity from last frame;
+        [HideInInspector] public Vector3 savedMovementVelocity = Vector3.zero;
 
 
         [HideInInspector] public float inputX;
@@ -110,6 +113,7 @@ namespace CMF
 			tr = transform;
 			characterInput = GetComponent<CharacterInput>();
             playerRespawn = GetComponent<PlayerRespawn>();
+            turnTowardControllerVelocity = tr.GetChild(0).GetComponent<TurnTowardControllerVelocity>();
             ceilingDetector = GetComponent<CeilingDetector>();
             ledgeGrab = GetComponent<LedgeGrab>();
 
@@ -132,15 +136,6 @@ namespace CMF
 
             if (mobile_Input && mobile_Input.Jump())
                 DoJumpMoblie();
-
-            if (ledgeGrab != null)
-            {
-                if (ledgeGrab.isActive)
-                {
-                    savedLedgeLR += -inputX * 0.02f;
-                    tr.position = ledgeGrab.ledgeFollow.transform.position + ledgeGrab.dir * savedLedgeLR;
-                }
-            }
         }
 
         //Handle jump booleans for later use in FixedUpdate;
@@ -218,6 +213,39 @@ namespace CMF
                 anim.SetFloat("vertical", movY);
             }
 
+            if (ledgeGrab != null)
+            {
+                if (ledgeGrab.isActive)
+                {
+                    Vector3 VectorY = inputY * (inputY > 0 ? LedgeVector : Vector3.up) * 8;
+                    Vector3 VectorX = inputX * (Vector3.down * (LedgeAngle < 0 ? -1 : 1)) * 8;
+
+                    momentum = VectorY + VectorX;
+
+                    if (VectorX.y < 0)
+                    {
+                        Vector3 HorizontalOffset = ledgeGrab.PlayerRoot.TransformDirection(new Vector3(inputX * 0.25f, 0, 0));
+                        momentum += HorizontalOffset;
+                    }
+
+                    if ((jumpKeyIsPressed == true || jumpKeyWasPressed || jumpMoblie) && !jumpInputIsLocked)
+                    {
+                        if (turnTowardControllerVelocity)
+                        {
+                            ledgeGrab.lastUngrab = Time.time;
+                            momentum = ledgeGrab.PlayerRoot.TransformDirection(new Vector3(0, 0, -8));
+                            turnTowardControllerVelocity.currentYRotation += 180;
+                        }
+
+                        //Call events;
+                        OnGroundContactLost();
+                        OnJumpStart();
+
+                        currentControllerState = ControllerState.Jumping;
+                    }
+                }
+            }
+
             //If local momentum is used, transform momentum into world space first;
             Vector3 _worldMomentum = momentum;
 			if(useLocalMomentum)
@@ -225,15 +253,6 @@ namespace CMF
 
 			//Add current momentum to velocity;
 			_velocity += _worldMomentum;
-
-            if (ledgeGrab != null)
-            {
-                if (ledgeGrab.isActive)
-                {
-                    _velocity = Vector3.zero;
-                }
-            }
-
 
             //If player is grounded or sliding on a slope, extend mover's sensor range;
             //This enables the player to walk up/down stairs and slopes without losing ground contact;
@@ -317,7 +336,8 @@ namespace CMF
 			//Multiply (normalized) velocity with movement speed;
 			_velocity *= movementSpeed;
 
-            //_velocity = Vector3.Lerp(savedMovementVelocity, _velocity, movementSmooth * Time.fixedDeltaTime);
+            if (moveSmooth)
+                _velocity = Vector3.Lerp(savedMovementVelocity, _velocity, movementSmooth * Time.fixedDeltaTime);
             //_velocity = Vector3.SmoothDamp(savedMovementVelocity, _velocity, ref smoothDampVel, movementSmooth);
 
 
@@ -755,5 +775,10 @@ namespace CMF
 			else
 				momentum = _newMomentum;
 		}
-	}
+
+        public void SetMovementSpeed(float _newSpeed)
+        {
+            movementSpeed = _newSpeed;
+        }
+    }
 }

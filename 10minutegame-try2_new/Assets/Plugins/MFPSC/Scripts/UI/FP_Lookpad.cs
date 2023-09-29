@@ -107,7 +107,7 @@ public class FP_Lookpad : MonoBehaviour {
     //Returns drag vector;
     public Vector2 LookInput()
     {
-        return touchInput * new Vector2(1, -1) * Time.deltaTime;
+        return touchInput * new Vector2(1, -1) * 0.25f * Time.deltaTime;
     }
 
     //Returns whether or not button is pressed

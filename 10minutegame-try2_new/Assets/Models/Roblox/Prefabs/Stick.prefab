@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7881288360226363122}
   - component: {fileID: 7881288360226363125}
   - component: {fileID: 7881288360226363123}
-  - component: {fileID: 7881288360226363124}
   - component: {fileID: 7881288360226363127}
   m_Layer: 0
   m_Name: Stick
@@ -64,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d89a7f2c359465045818cafac55418f4, type: 2}
+  - {fileID: 2100000, guid: 667acd98c52c4694c9e402e71699b867, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,27 +104,6 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 2.5, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &7881288360226363124
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7881288360226363129}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7881288360226363127
@@ -140,5 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788deb31330bdda409e6d4d512a0d119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTagCheck: 1
   doDead: 0
   restartScene: 0

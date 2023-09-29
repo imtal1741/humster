@@ -5,6 +5,13 @@ using UnityEngine;
 public class DeadTrigger : MonoBehaviour
 {
 
+    public enum TagCheck
+    {
+        Player,
+        Foot
+    }
+    public TagCheck currentTagCheck = TagCheck.Player;
+
     [Header("If Shooter")]
     public bool doDead;
 
@@ -13,9 +20,21 @@ public class DeadTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(currentTagCheck.ToString()))
         {
             Health health = other.gameObject.GetComponent<Health>();
+
+            if (!health)
+                health = other.transform.parent.GetComponent<Health>();
+
+            if (!health)
+                return;
+
+            if (health.death)
+                return;
+
+            if (health.audioSource && health.deathSound)
+                health.audioSource.PlayOneShot(health.deathSound, 0.5f);
 
             if (doDead)
             {

@@ -155,6 +155,16 @@ public class FP_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
 	{
 		isEnabled = enable;
 	}
+
+    void OnDisable()
+    {
+        pressed = false;
+        transform.position = startPos;
+        touchZone.SetActive(true);
+        _returnHandle = true;
+        if (OnEndJoystickMovement != null)
+            OnEndJoystickMovement(this);
+    }
 }
 
 

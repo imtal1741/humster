@@ -63,8 +63,6 @@ public class PlayerRespawn : MonoBehaviour
     List<GameObject> sizeBlocks = new List<GameObject>();
     List<Vector3> startSizeBlocks = new List<Vector3>();
 
-
-
     void Start()
     {
         health = GetComponent<Health>();
@@ -88,6 +86,8 @@ public class PlayerRespawn : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && health.health > 0)
         {
             if (playButton.activeSelf) return;
+
+            if (health.yandexSDK.nowAdShow) return;
 
             if (restartMenuUI)
             {
@@ -222,11 +222,13 @@ public class PlayerRespawn : MonoBehaviour
     {
         GameIsPaused = false;
         pauseMenuUI.SetActive(false);
-        languageMenuUI.SetActive(false);
+        if (languageMenuUI)
+            languageMenuUI.SetActive(false);
         if (difficultyMenuUI)
             difficultyMenuUI.SetActive(false);
         if (moreGamesUI)
             moreGamesUI.SetActive(false);
+
         if (isMobile)
         {
             foreach (GameObject obj in MobileInputs)
@@ -249,7 +251,8 @@ public class PlayerRespawn : MonoBehaviour
     {
         GameIsPaused = true;
         pauseMenuUI.SetActive(true);
-        languageMenuUI.SetActive(true);
+        if (languageMenuUI)
+            languageMenuUI.SetActive(true);
         if (difficultyMenuUI)
         {
             if (health.yandexSDK.savedRecord >= 9)
@@ -259,6 +262,7 @@ public class PlayerRespawn : MonoBehaviour
         }
         if (moreGamesUI)
             moreGamesUI.SetActive(true);
+
         if (isMobile)
         {
             foreach (GameObject obj in MobileInputs)
@@ -312,6 +316,7 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (!BlackBorders_anim.GetBool("Close"))
         {
+            health.death = true;
             Time.timeScale = 1f;
             BlackBorders_anim.SetBool("Close", true);
             yield return new WaitForSeconds(0.6f);

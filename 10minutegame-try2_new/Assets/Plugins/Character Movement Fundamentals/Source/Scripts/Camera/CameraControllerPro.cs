@@ -155,7 +155,7 @@ namespace CMF
             float sinAmountY = -Mathf.Abs(Mathf.Sin(SinTime) * bobSmooth);
             float sinAmountX = Mathf.Sin(SinTime) * (bobIntensityX);
 
-            if (playerRespawn.GameIsPaused == false)
+            if (playerRespawn.GameIsPaused == false && smoothRot != -1)
             {
                 smoothX = Mathf.Clamp(Mathf.Lerp(smoothX, advancedWalkerController.limitedInputX * 1.5f + oldHorizontalInput * 11, Time.fixedDeltaTime * smoothRot), -40, 40);
                 tr.localRotation *= Quaternion.Euler(new Vector3(sinAmountY, sinAmountX, smoothX / 5));

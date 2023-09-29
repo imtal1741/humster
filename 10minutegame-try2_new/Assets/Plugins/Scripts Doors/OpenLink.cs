@@ -6,12 +6,12 @@ public class OpenLink : MonoBehaviour
 
     public GameObject[] mobileNotFriendlyGames;
 
-    [HideInInspector]
-    public string domainName;
+    [HideInInspector] public string domainName;
+    [HideInInspector] public string langName = "ru";
 
     public void OpenURL(string link)
     {
-        Application.OpenURL("https://yandex." + domainName + link);
+        Application.OpenURL("https://yandex." + domainName + link + "?lang=" + langName);
     }
 
 

@@ -47,6 +47,8 @@ public class CasinoSlot : MonoBehaviour
         if (runnerNumberRun.spins <= 0)
             return;
 
+        if (winBlock.activeSelf)
+            return;
 
         StartCoroutine(SpinIE());
     }
@@ -174,6 +176,14 @@ public class CasinoSlot : MonoBehaviour
         mySequence.Append(myList.DOAnchorPosY(offsetValue * (cell - 1), speed).SetEase(Ease.OutSine));
     }
 
+
+    public void BackButton()
+    {
+        if (isSpin)
+            return;
+
+        gameObject.SetActive(false);
+    }
 
 
     private int RandomFromRangeWithExceptions(int rangeMin, int rangeMax, int exclude)

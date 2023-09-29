@@ -12,8 +12,9 @@ public class Health : MonoBehaviour
     public int health;
     int healthStart;
     public Slider sliderHP;
-    bool death;
+    [HideInInspector] public bool death;
     [HideInInspector] public int countDeaths;
+    public GameObject VisualModel;
 
     [Header("Sound")]
     public AudioClip impact;
@@ -27,8 +28,8 @@ public class Health : MonoBehaviour
     public YandexSDK yandexSDK;
 
     [HideInInspector] public PlayerRespawn playerRespawn;
-    AdvancedWalkerController advancedWalkerController;
-    Rigidbody rb;
+    [HideInInspector] public AdvancedWalkerController advancedWalkerController;
+    [HideInInspector] public Rigidbody rb;
 
     public SetupArena setupArena;
 
@@ -53,7 +54,7 @@ public class Health : MonoBehaviour
         if (health <= 0 && !death)
         {
             death = true;
-            StartCoroutine(ShowRestartMenu());
+            ShowRestartMenu();
         }
     }
 
@@ -71,45 +72,42 @@ public class Health : MonoBehaviour
         }
     }
 
-    IEnumerator ShowRestartMenu()
+    void ShowRestartMenu()
     {
+        if (VisualModel)
+            VisualModel.SetActive(false);
 
-        if (!playerRespawn.BlackBorders_anim.GetBool("Close"))
+        playerRespawn.Resume();
+        playerRespawn.restartMenuUI.SetActive(true);
+
+
+        playerRespawn.GameIsPaused = true;
+        if (playerRespawn.isMobile)
         {
-            playerRespawn.BlackBorders_anim.SetBool("Close", true);
-            yield return new WaitForSeconds(0.6f);
-
-
-
-            #if !UNITY_EDITOR
-                yandexSDK.ShowAdvert();
-            #endif
-
-
-
-            playerRespawn.restartMenuUI.SetActive(true);
-
-
-            playerRespawn.GameIsPaused = true;
-
-            Time.timeScale = 0f;
-
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-
-
-
-            if (setupArena)
+            foreach (GameObject obj in playerRespawn.MobileInputs)
             {
-                setupArena.ClearArena(true);
+                obj.SetActive(false);
             }
         }
+        Time.timeScale = 0.00000001f;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
 
+
+
+        if (setupArena)
+        {
+            setupArena.ClearArena(true);
+        }
     }
 
     public void Restart()
     {
         playerRespawn.restartMenuUI.SetActive(false);
+
+        #if !UNITY_EDITOR
+            yandexSDK.ShowAdvert();
+        #endif
 
 
         if (setupArena)
@@ -118,10 +116,15 @@ public class Health : MonoBehaviour
 
             setupArena.Setup();
         }
+        else
+        {
+            Respawn(false, "-");
+        }
 
         playerRespawn.Resume();
 
-        playerRespawn.BlackBorders_anim.SetBool("Close", false);
+        if (VisualModel)
+            VisualModel.SetActive(true);
     }
 
     public void ResetPlayer()
@@ -154,66 +157,89 @@ public class Health : MonoBehaviour
 
     IEnumerator RespawnIE(bool reloadScene, string name)
     {
-        Animator tempAnim = playerRespawn.BlackBorders_anim;
 
-        if (!tempAnim.GetBool("Close"))
+        if (yandexSDK)
         {
-            if (yandexSDK)
-            {
-                yandexSDK.TrySendAnalyticsEvent("Death",
-                    new Dictionary<string, object>
-                    {
+            yandexSDK.TrySendAnalyticsEvent("Death",
+                new Dictionary<string, object>
+                {
                         { "Level", yandexSDK.nowScoreValue },
                         { "EnemyName", name },
                         { "LastCheckpoint", playerRespawn.lastCheckpoint },
                         { "LastObject", advancedWalkerController.lastTransform.name }
-                    }
-                );
-            }
-
-            if (audioSource && deathSound)
-                audioSource.PlayOneShot(deathSound, 0.5f);
-
-            tempAnim.SetBool("Close", true);
-            yield return new WaitForSeconds(0.5f);
-
-            if (deathTimeline)
-            {
-                deathTimeline.SetActive(true);
-
-                yield return new WaitForSeconds(2.3f);
-            }
-
-            if (reloadScene)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-            else
-            {
-                countDeaths++;
-
-                rb.interpolation = RigidbodyInterpolation.None;
-                advancedWalkerController.momentum = Vector3.zero;
-                transform.position = playerRespawn.startPos;
-                transform.rotation = Quaternion.identity;
-
-                yield return new WaitForSeconds(0.1f);
-
-                rb.interpolation = RigidbodyInterpolation.Interpolate;
-
-
-                #if !UNITY_EDITOR
-                    yandexSDK.ShowAdvert();
-                #endif
-                
-
-                if (deathTimeline)
-                    deathTimeline.SetActive(false);
-
-                tempAnim.SetBool("Close", false);
-            }
+                }
+            );
         }
 
+        if (deathTimeline)
+        {
+            deathTimeline.SetActive(true);
+
+            yield return new WaitForSeconds(2.3f);
+        }
+
+        if (reloadScene)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else
+        {
+            countDeaths++;
+
+            rb.interpolation = RigidbodyInterpolation.None;
+            advancedWalkerController.momentum = Vector3.zero;
+            transform.position = playerRespawn.startPos;
+            transform.rotation = Quaternion.identity;
+
+            yield return new WaitForSeconds(0.1f);
+
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+
+            if (deathTimeline)
+                deathTimeline.SetActive(false);
+
+            #if !UNITY_EDITOR
+                yandexSDK.ShowAdvert();
+            #endif
+
+            death = false;
+            health = healthStart;
+        }
+
+    }
+
+    public void LoadCheckpoint(int x)
+    {
+        if (x <= 0)
+            return;
+
+        ArrayCheckpoint arrayCheckpoint = GetComponent<ArrayCheckpoint>();
+        Transform teleportTr;
+        if (arrayCheckpoint.checkpoints.Count == x)
+        {
+            arrayCheckpoint.checkpoints[x - 1].Activate();
+            teleportTr = arrayCheckpoint.FinishPoint;
+        }
+        else
+        {
+            teleportTr = arrayCheckpoint.checkpoints[x - 1].transform;
+        }
+
+        StartCoroutine(TeleportIE(teleportTr));
+    }
+    public IEnumerator TeleportIE(Transform point)
+    {
+        rb.interpolation = RigidbodyInterpolation.None;
+        advancedWalkerController.momentum = Vector3.zero;
+        transform.position = point.position;
+        transform.rotation = point.rotation;
+
+        yield return new WaitForSeconds(0.1f);
+
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        FindObjectOfType<SetGetPrefsState>().TeleportState(transform);
     }
 
 

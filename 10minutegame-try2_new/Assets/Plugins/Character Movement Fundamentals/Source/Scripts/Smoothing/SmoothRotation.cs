@@ -18,6 +18,8 @@ namespace CMF
 		//Whether rotation values will be extrapolated to compensate for delay caused by smoothing;
 		public bool extrapolateRotation = false;
 
+        public bool needRotateTarget = true;
+
 		//'UpdateType' controls whether the smoothing function is called in 'Update' or 'LateUpdate';
 		public enum UpdateType
 		{
@@ -64,7 +66,8 @@ namespace CMF
 			//Set rotation;
 			tr.rotation = currentRotation;
 
-            target.rotation = currentRotation;
+            if (needRotateTarget)
+                target.rotation = currentRotation;
 
         }
 
