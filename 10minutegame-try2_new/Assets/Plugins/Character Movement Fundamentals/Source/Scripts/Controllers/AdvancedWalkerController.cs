@@ -103,6 +103,7 @@ namespace CMF
 		[Tooltip("Optional camera transform used for calculating movement direction. If assigned, character movement will take camera view into account.")]
 		public Transform cameraTransform;
 
+        public bool bikeSlopes;
         public float preFallTime;
         float countPreFall;
         bool disableFalling;
@@ -522,8 +523,8 @@ namespace CMF
 				_horizontalMomentum = momentum - _verticalMomentum;
 			}
 
-			//Add gravity to vertical momentum;
-			_verticalMomentum -= tr.up * gravity * Time.deltaTime;
+            //Add gravity to vertical momentum;
+            _verticalMomentum -= tr.up * gravity * Time.deltaTime;
 
 			//Remove any downward force if the controller is grounded;
 			if(currentControllerState == ControllerState.Grounded && VectorMath.GetDotProduct(_verticalMomentum, tr.up) < 0f)
@@ -544,14 +545,15 @@ namespace CMF
 					//Lower air control slightly with a multiplier to add some 'weight' to any momentum applied to the controller;
 					float _airControlMultiplier = 0.25f;
 					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate * _airControlMultiplier;
-				}
+                }
 				//If controller has not received additional momentum;
 				else
 				{
 					//Clamp _horizontal velocity to prevent accumulation of speed;
 					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
 					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed);
-				}
+                    
+                }
 			}
 
 			//Steer controller on slopes;
@@ -567,7 +569,7 @@ namespace CMF
 
 				//Add movement velocity to momentum;
 				_horizontalMomentum += _slopeMovementVelocity * Time.fixedDeltaTime;
-			}
+            }
 
 			//Apply friction to horizontal momentum based on whether the controller is grounded;
 			if(currentControllerState == ControllerState.Grounded)
@@ -590,8 +592,8 @@ namespace CMF
 
 				//Apply additional slide gravity;
 				Vector3 _slideDirection = Vector3.ProjectOnPlane(-tr.up, mover.GetGroundNormal()).normalized;
-				momentum += _slideDirection * slideGravity * Time.deltaTime;
-			}
+                momentum += _slideDirection * slideGravity * Time.deltaTime;
+            }
 			
 			//If controller is jumping, override vertical velocity with jumpSpeed;
 			if(currentControllerState == ControllerState.Jumping)
@@ -600,7 +602,15 @@ namespace CMF
 				momentum += tr.up * jumpSpeed;
 			}
 
-			if(useLocalMomentum)
+            if (bikeSlopes)
+            {
+                Vector3 _pointDownVector = Vector3.ProjectOnPlane(mover.GetGroundNormal(), tr.up).normalized;
+                Debug.Log(_pointDownVector);
+
+                momentum += _pointDownVector;
+            }
+
+            if (useLocalMomentum)
 				momentum = tr.worldToLocalMatrix * momentum;
 		}
 
@@ -715,8 +725,8 @@ namespace CMF
 			if(!mover.IsGrounded())
 				return true;
 
-            //return (Vector3.Angle(mover.GetGroundNormal(), tr.up) > slopeLimit);
-            return false;
+            return (Vector3.Angle(mover.GetGroundNormal(), tr.up) > slopeLimit);
+            //return false;
         }
 
 		//Getters;
