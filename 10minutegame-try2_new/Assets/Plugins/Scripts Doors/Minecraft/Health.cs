@@ -187,7 +187,10 @@ public class Health : MonoBehaviour
             countDeaths++;
 
             rb.interpolation = RigidbodyInterpolation.None;
+            advancedWalkerController.smoothDampVel = Vector3.zero;
             advancedWalkerController.momentum = Vector3.zero;
+            advancedWalkerController.savedVelocity = Vector3.zero;
+            advancedWalkerController.savedMovementVelocity = Vector3.zero;
             transform.position = playerRespawn.startPos;
             transform.rotation = Quaternion.identity;
 

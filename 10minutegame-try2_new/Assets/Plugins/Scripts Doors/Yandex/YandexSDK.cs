@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Runtime.InteropServices;
 using Lean.Localization;
+using TMPro;
 //using CrazyGames;
 
 
@@ -71,6 +72,9 @@ public class YandexSDK : MonoBehaviour
 
     [Header("Try Show Adv On Start")]
     public bool showAdvOnStart;
+    public TextMeshProUGUI advertTimer;
+    bool advertTimerActive;
+
 
     private float nextAdv;
     [HideInInspector] public bool nowAdShow;
@@ -179,6 +183,12 @@ public class YandexSDK : MonoBehaviour
         GetLang();
 
         //LoadExtern();
+
+        if (advertTimer)
+        {
+            advertTimer.gameObject.SetActive(false);
+            advertTimerActive = false;
+        }
 
         if (showAdvOnStart)
             ShowAdvert();
@@ -323,16 +333,60 @@ public class YandexSDK : MonoBehaviour
             openLink.langName = lang;
     }
 
-    public void ShowAdvert()
+
+
+    void ShowAdvertSimple()
     {
-        if (Time.time > nextAdv)
+        if (Time.time >= nextAdv)
         {
-            nextAdv = Time.time + 30;
+            nextAdv = Time.time + 60;
             if (playerRespawn)
                 playerRespawn.Pause();
 
             ShowAdv();
         }
+    }
+    public void ShowAdvert()
+    {
+        if (advertTimerActive)
+            return;
+
+        ShowAdvertSimple();
+    }
+    public void ShowAdvertTimer()
+    {
+        if (advertTimer == null)
+            return;
+
+        if (advertTimerActive)
+            return;
+
+        if (nowAdShow)
+            return;
+
+        if (Time.time < nextAdv)
+            return;
+
+        advertTimerActive = true;
+
+        StartCoroutine(StartAdvertTimer());
+    }
+    IEnumerator StartAdvertTimer()
+    {
+        advertTimer.gameObject.SetActive(true);
+        advertTimer.text = "5";
+        yield return new WaitForSeconds(1f);
+        advertTimer.text = "4";
+        yield return new WaitForSeconds(1f);
+        advertTimer.text = "3";
+        yield return new WaitForSeconds(1f);
+        advertTimer.text = "2";
+        yield return new WaitForSeconds(1f);
+        advertTimer.text = "1";
+        yield return new WaitForSeconds(1f);
+        advertTimer.gameObject.SetActive(false);
+        ShowAdvertSimple();
+        advertTimerActive = false;
     }
 
     public void ButtonAdvWeapon()
@@ -369,7 +423,13 @@ public class YandexSDK : MonoBehaviour
     public void SetListenerVolume(int x)
     {
         nowAdShow = x == 0 ? true : false;
+        if (nowAdShow == false)
+            advertTimerActive = false;
         AudioListener.volume = x;
+
+        if (x > 0 && playerRespawn.GameIsPaused)
+            return;
+
         Time.timeScale = x == 0 ? 0.00000001f : x;
     }
 

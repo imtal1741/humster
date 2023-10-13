@@ -10,8 +10,9 @@ namespace CMF
 		//Target controller;
 		public Controller controller;
 
-		//Speed at which this gameobject turns toward the controller's velocity;
-		public float turnSpeed = 500f;
+        //Speed at which this gameobject turns toward the controller's velocity;
+        public float turnSpeed = 500f;
+        public float magnitudeThreshold = 0.5f;
 
 		Transform parentTransform;
 		Transform tr;
@@ -27,6 +28,7 @@ namespace CMF
 		//Whether the current controller momentum should be ignored when calculating the new direction;
 		public bool ignoreControllerMomentum = false;
 
+
         //Setup;
         void Start () {
 			tr = transform;
@@ -37,8 +39,8 @@ namespace CMF
 			{
 				Debug.LogWarning("No controller script has been assigned to this 'TurnTowardControllerVelocity' component!", this);
 				this.enabled = false;
-			}	
-		}
+			}
+        }
 
 		void LateUpdate () {
 
@@ -52,10 +54,11 @@ namespace CMF
             //Project velocity onto a plane defined by the 'up' direction of the parent transform;
             _velocity = Vector3.ProjectOnPlane(_velocity, parentTransform.up);
 
-			float _magnitudeThreshold = 0.001f;
+            //                   0.001f
+            //magnitudeThreshold = 0.5f;
 
-			//If the velocity's magnitude is smaller than the threshold, return;
-			if(_velocity.magnitude < _magnitudeThreshold)
+            //If the velocity's magnitude is smaller than the threshold, return;
+            if (_velocity.magnitude < magnitudeThreshold)
 				return;
 
 			//Normalize velocity direction;
@@ -79,6 +82,7 @@ namespace CMF
 			else if(_angleDifference > 0f && _step > _angleDifference)
 				_step = _angleDifference;
 
+
             factorRot = _step;
 
             //Add step to current y angle;
@@ -90,8 +94,8 @@ namespace CMF
 			if(currentYRotation < -360f)
 				currentYRotation += 360f;
 
-			//Set transform rotation using Quaternion.Euler;
-			tr.localRotation = Quaternion.Euler(0f, currentYRotation, 0f);
+            //Set transform rotation using Quaternion.Euler;
+            tr.localRotation = Quaternion.Euler(0f, currentYRotation, 0f);
 
 		}
 

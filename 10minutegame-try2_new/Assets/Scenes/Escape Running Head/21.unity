@@ -1476,6 +1476,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7881288360226363127, guid: 52bfd4c6ae142194b83a3a1f1911cb03,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7881288360226363129, guid: 52bfd4c6ae142194b83a3a1f1911cb03,
         type: 3}
       propertyPath: m_Name
@@ -1569,6 +1574,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881288360226363127, guid: 52bfd4c6ae142194b83a3a1f1911cb03,
+        type: 3}
+      propertyPath: doDead
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7881288360226363129, guid: 52bfd4c6ae142194b83a3a1f1911cb03,
         type: 3}
@@ -2039,7 +2049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788deb31330bdda409e6d4d512a0d119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doDead: 0
+  currentTagCheck: 0
+  doDead: 1
   restartScene: 0
 --- !u!65 &1115479063
 BoxCollider:
@@ -2288,6 +2299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Head Saw
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127174610334100616, guid: 0f9417698e8ab3a4b9497c72961ca970,
+        type: 3}
+      propertyPath: doDead
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2866,6 +2882,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1026067578}
     m_Modifications:
+    - target: {fileID: 2149731051397617441, guid: d440656c8c5e670428ac9d6d963c63e7,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3055622953653108157, guid: d440656c8c5e670428ac9d6d963c63e7,
         type: 3}
       propertyPath: m_RootOrder

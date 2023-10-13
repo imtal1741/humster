@@ -2617,7 +2617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788deb31330bdda409e6d4d512a0d119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doDead: 0
+  currentTagCheck: 0
+  doDead: 1
   restartScene: 0
 --- !u!65 &762116239
 BoxCollider:
@@ -6035,6 +6036,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8113323545159558376, guid: c0a182c52af93444ca6feceb50d5e103,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6324,6 +6330,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6749533849938516523, guid: 3f5b43fbf0ddd3342b33976655bb9390,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7279612873405827900, guid: 3f5b43fbf0ddd3342b33976655bb9390,
         type: 3}
       propertyPath: player
@@ -6417,6 +6428,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113323545159558376, guid: c0a182c52af93444ca6feceb50d5e103,
+        type: 3}
+      propertyPath: doDead
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7101,6 +7117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749533849938516523, guid: 3f5b43fbf0ddd3342b33976655bb9390,
+        type: 3}
+      propertyPath: doDead
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7279612873405827900, guid: 3f5b43fbf0ddd3342b33976655bb9390,
         type: 3}

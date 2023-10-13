@@ -17,6 +17,8 @@ public class ArrayCheckpoint : MonoBehaviour
     public Slider progressBar;
     public TextMeshProUGUI progressText;
 
+    public YandexSDK yandexSDK;
+
     [HideInInspector] public int nowCheckpoints;
     int maxCheckpoints;
 
@@ -44,6 +46,8 @@ public class ArrayCheckpoint : MonoBehaviour
             PlayerPrefs.SetInt("Score", nowCheckpoints);
             PlayerPrefs.Save();
         }
+
+        yandexSDK.ShowAdvertTimer();
     }
 
     public void ResetCheckpoints()

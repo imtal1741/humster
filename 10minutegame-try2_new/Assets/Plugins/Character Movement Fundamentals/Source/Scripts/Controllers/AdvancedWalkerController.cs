@@ -27,6 +27,9 @@ namespace CMF
         bool jumpKeyWasLetGo = false;
         bool jumpKeyIsPressed = false;
         bool jumpMoblie = false;
+        public bool infinityJump;
+        public bool bunnyJump;
+        int countJumps;
 
         public Animator anim;
         float movX;
@@ -41,8 +44,9 @@ namespace CMF
 
         //Movement smooth;
         public bool moveSmooth;
+        public bool moveSmoothDamp;
         public float movementSmooth = 0.1f;
-        Vector3 smoothDampVel;
+        [HideInInspector] public Vector3 smoothDampVel;
 
         //How fast the controller can change direction while in the air;
         //Higher values result in more air control;
@@ -55,18 +59,19 @@ namespace CMF
 
 		//Jump duration variables;
 		public float jumpDuration = 0.2f;
-		float currentJumpStartTime = 0f;
+        float currentJumpStartTime = 0f;
+        float currentJumpEndTime = 0f;
 
-		//'AirFriction' determines how fast the controller loses its momentum while in the air;
-		//'GroundFriction' is used instead, if the controller is grounded;
-		public float airFriction = 0.5f;
+        //'AirFriction' determines how fast the controller loses its momentum while in the air;
+        //'GroundFriction' is used instead, if the controller is grounded;
+        public float airFriction = 0.5f;
 		public float groundFriction = 100f;
 
         //Current momentum;
         [HideInInspector] public Vector3 momentum = Vector3.zero;
 
         //Saved velocity from last frame;
-        Vector3 savedVelocity = Vector3.zero;
+        [HideInInspector] public Vector3 savedVelocity = Vector3.zero;
 
         //Saved horizontal movement velocity from last frame;
         [HideInInspector] public Vector3 savedMovementVelocity = Vector3.zero;
@@ -104,6 +109,7 @@ namespace CMF
 		public Transform cameraTransform;
 
         public bool bikeSlopes;
+        [HideInInspector] public Vector3 pointDownVectorBike;
         public float preFallTime;
         float countPreFall;
         bool disableFalling;
@@ -334,13 +340,16 @@ namespace CMF
 			//Calculate (normalized) movement direction;
 			Vector3 _velocity = CalculateMovementDirection();
 
-			//Multiply (normalized) velocity with movement speed;
-			_velocity *= movementSpeed;
+            //Multiply (normalized) velocity with movement speed;
+            _velocity *= movementSpeed * (countJumps * 0.2f + 1);
 
             if (moveSmooth)
-                _velocity = Vector3.Lerp(savedMovementVelocity, _velocity, movementSmooth * Time.fixedDeltaTime);
-            //_velocity = Vector3.SmoothDamp(savedMovementVelocity, _velocity, ref smoothDampVel, movementSmooth);
-
+            {
+                if (moveSmoothDamp)
+                    _velocity = Vector3.SmoothDamp(savedMovementVelocity, _velocity, ref smoothDampVel, movementSmooth);
+                else
+                    _velocity = Vector3.Lerp(savedMovementVelocity, _velocity, movementSmooth * Time.fixedDeltaTime);
+            }
 
             return _velocity;
 		}
@@ -493,6 +502,9 @@ namespace CMF
         {
             if (currentControllerState == ControllerState.Grounded)
             {
+                if ((Time.time - currentJumpEndTime) > 0.5f)
+                    countJumps = 0;
+
                 if ((jumpKeyIsPressed == true || jumpKeyWasPressed || jumpMoblie) && !jumpInputIsLocked)
                 {
                     //Call events;
@@ -500,6 +512,11 @@ namespace CMF
                     OnJumpStart();
 
                     currentControllerState = ControllerState.Jumping;
+
+                    if (bunnyJump)
+                    {
+                        countJumps = Mathf.Clamp(countJumps + 1, 0, 5);
+                    }
                 }
             }
         }
@@ -604,10 +621,16 @@ namespace CMF
 
             if (bikeSlopes)
             {
-                Vector3 _pointDownVector = Vector3.ProjectOnPlane(mover.GetGroundNormal(), tr.up).normalized;
-                Debug.Log(_pointDownVector);
+                pointDownVectorBike = Vector3.ProjectOnPlane(-tr.up, mover.GetGroundNormal());
 
-                momentum += _pointDownVector;
+                if (pointDownVectorBike.magnitude > 0.1f)
+                {
+                    if (VectorMath.GetDotProduct(momentum, tr.up) > 0f)
+                        momentum = VectorMath.RemoveDotVector(momentum, tr.up);
+
+                    //momentum += pointDownVectorBike * slideGravity * Time.deltaTime;
+                    momentum += Vector3.ClampMagnitude(pointDownVectorBike * 5, 2);
+                }
             }
 
             if (useLocalMomentum)
@@ -630,7 +653,8 @@ namespace CMF
 			currentJumpStartTime = Time.time;
 
             //Lock jump input until jump key is released again;
-            jumpInputIsLocked = true;
+            if (infinityJump == false)
+                jumpInputIsLocked = true;
 
             //Call event;
             if (OnJump != null)
@@ -676,8 +700,10 @@ namespace CMF
 		//This function is called when the controller has landed on a surface after being in the air;
 		void OnGroundContactRegained()
 		{
-			//Call 'OnLand' event;
-			if(OnLand != null)
+            currentJumpEndTime = Time.time;
+
+            //Call 'OnLand' event;
+            if (OnLand != null)
 			{
 				Vector3 _collisionVelocity = momentum;
 				//If local momentum is used, transform momentum into world coordinates first;
@@ -729,10 +755,20 @@ namespace CMF
             //return false;
         }
 
-		//Getters;
+        //Getters;
 
-		//Get last frame's velocity;
-		public override Vector3 GetVelocity ()
+        public Vector3 GetGroundPoint()
+        {
+            return mover.GetGroundPoint();
+        }
+
+        public Vector3 GetGroundNormal()
+        {
+            return mover.GetGroundNormal();
+        }
+
+        //Get last frame's velocity;
+        public override Vector3 GetVelocity ()
 		{
 			return savedVelocity;
 		}

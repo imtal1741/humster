@@ -242,8 +242,12 @@ namespace CMF
 			{
 				_layerMask ^= (1 << LayerMask.NameToLayer("Ignore Raycast"));
 			}
- 
-			//Set sensor layermask;
+            if (_layerMask == (_layerMask | (1 << LayerMask.NameToLayer("IgnoreRaycastWithCollisions"))))
+            {
+                _layerMask ^= (1 << LayerMask.NameToLayer("IgnoreRaycastWithCollisions"));
+            }
+
+            //Set sensor layermask;
             sensor.layermask = _layerMask;
 
 			//Save current layer;

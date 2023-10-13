@@ -417,6 +417,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3544376258822485686, guid: d49f6f47e46e97744985dfd8db46b878,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5990842586120648303, guid: d49f6f47e46e97744985dfd8db46b878,
         type: 3}
       propertyPath: m_Name
@@ -890,6 +895,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5985712708771005818, guid: f265ecd6ef2c51d45ad5210675f07e13,
         type: 3}
+    - target: {fileID: 8113323545159558376, guid: c0a182c52af93444ca6feceb50d5e103,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3471,7 +3481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788deb31330bdda409e6d4d512a0d119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doDead: 0
+  currentTagCheck: 0
+  doDead: 1
   restartScene: 0
 --- !u!65 &1412324634
 BoxCollider:
@@ -3631,6 +3642,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544376258822485686, guid: d49f6f47e46e97744985dfd8db46b878,
+        type: 3}
+      propertyPath: doDead
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5990842586120648303, guid: d49f6f47e46e97744985dfd8db46b878,
         type: 3}
@@ -4647,6 +4663,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8113323545159558376, guid: c0a182c52af93444ca6feceb50d5e103,
+        type: 3}
+      propertyPath: doDead
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4728,16 +4749,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
         type: 3}
-      propertyPath: text
+      propertyPath: leanLocalization
       value: 
+      objectReference: {fileID: 5526692783048801908}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: longName.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
         type: 3}
-      propertyPath: text2
-      value: 
+      propertyPath: shortLang.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: longName.Array.data[0]
+      value: Russian
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: longName.Array.data[1]
+      value: English
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: longName.Array.data[2]
+      value: Turkish
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: shortLang.Array.data[0]
+      value: ru
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: shortLang.Array.data[1]
+      value: en
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116937450176077771, guid: cc9204db30e875f44803919ba1a9f345,
+        type: 3}
+      propertyPath: shortLang.Array.data[2]
+      value: tr
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc9204db30e875f44803919ba1a9f345, type: 3}
+--- !u!114 &5526692783048801908 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3467622380568992861, guid: cc9204db30e875f44803919ba1a9f345,
+    type: 3}
+  m_PrefabInstance: {fileID: 5526692783048801907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
