@@ -24,10 +24,10 @@ public class BikeRotations : MonoBehaviour
     public Vector3 WheelRayDownOffset;
     public float WheelRayMaxDistance;
     public Transform Handlebar;
+    public Transform Character;
     public float rotationClamp;
 
     float startMovSpeed;
-    float startMovSmooth;
     float mainPosY;
     float mainPosYNew;
     float mainRotX;
@@ -45,7 +45,6 @@ public class BikeRotations : MonoBehaviour
     void Start()
     {
         startMovSpeed = advancedWalkerController.movementSpeed;
-        startMovSmooth = advancedWalkerController.movementSmooth;
 
         wheelsHitPoint = new Vector3[Wheels.Length];
     }
@@ -55,8 +54,6 @@ public class BikeRotations : MonoBehaviour
         isGrounded = advancedWalkerController.IsGrounded();
 
         RotateWheel();
-
-        advancedWalkerController.movementSmooth = isGrounded ? startMovSmooth : startMovSmooth * 2;
 
         float needRotZ = Mathf.Clamp(Mathf.Lerp(mainRotZ, -18 * turnTowardControllerVelocity.factorRot, Time.fixedDeltaTime * 5), -rotationClamp, rotationClamp);
         mainRotZ = Mathf.Lerp(mainRotZ, needRotZ, Time.fixedDeltaTime * 25);
@@ -102,13 +99,15 @@ public class BikeRotations : MonoBehaviour
         mainRotX = Mathf.Lerp(mainRotX, (isGrounded ? mainRotXNew : -15), Time.fixedDeltaTime * (isGrounded ? 15 : 5));
         float floatX = Mathf.Clamp(mainRotZ * 3, -20, 20);
         float inputX = advancedWalkerController.inputX;
-        mainRotY = Mathf.Lerp(mainRotY, (isGrounded ? 0 : inputX == 0 ? floatX * -1.5f : inputX * 30 + floatX), Time.fixedDeltaTime * (isGrounded ? 10 : 5));
+        float inputY = advancedWalkerController.inputY;
+        mainRotY = Mathf.Lerp(mainRotY, (isGrounded ? 0 : inputX == 0 ? inputY < 0 ? inputY * (70 * Mathf.Sign(floatX)) : floatX * -1.5f : inputX * 30 + floatX), Time.fixedDeltaTime * (isGrounded ? 10 : 5));
         mainSlant = Mathf.Lerp(mainSlant, (isGrounded ? mainRotZ * 1.5f : inputX == 0 ? floatX * -1.5f : inputX * 20 + floatX), Time.fixedDeltaTime * (isGrounded ? 20 : 10));
         HandlebarY = Mathf.Lerp(HandlebarY, (isGrounded ? -mainRotZ * 2.5f : inputX == 0 ? floatX * -1.5f : inputX * 30 + floatX), Time.fixedDeltaTime * (isGrounded ? 50 : 5));
 
         transform.localPosition = new Vector3(0, mainPosY, 0);
         transform.localRotation = Quaternion.Euler(mainRotX, mainRotY, mainSlant);
         Handlebar.localRotation = Quaternion.Euler(0, HandlebarY, 0);
+        Character.localRotation = Quaternion.Euler(0, 0, -mainSlant * 0.9f);
     }
 
 

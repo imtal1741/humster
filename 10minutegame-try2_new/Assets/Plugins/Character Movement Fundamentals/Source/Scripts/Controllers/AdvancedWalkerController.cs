@@ -29,7 +29,8 @@ namespace CMF
         bool jumpMoblie = false;
         public bool infinityJump;
         public bool bunnyJump;
-        int countJumps;
+        public float powerBunnyJump;
+        public int countJumps;
 
         public Animator anim;
         float movX;
@@ -53,6 +54,7 @@ namespace CMF
         public float airControlRate = 2f;
 
         public bool canJump = true;
+        public IsOverlapping isOverlapping;
 
         //Jump speed;
         public float jumpSpeed = 10f;
@@ -341,14 +343,18 @@ namespace CMF
 			Vector3 _velocity = CalculateMovementDirection();
 
             //Multiply (normalized) velocity with movement speed;
-            _velocity *= movementSpeed * (countJumps * 0.2f + 1);
+            _velocity *= movementSpeed + (IsGrounded() ? 0 : countJumps > 0 ? ((countJumps - 1) * powerBunnyJump) : 0);
 
             if (moveSmooth)
             {
                 if (moveSmoothDamp)
+                {
                     _velocity = Vector3.SmoothDamp(savedMovementVelocity, _velocity, ref smoothDampVel, movementSmooth);
+                }
                 else
+                {
                     _velocity = Vector3.Lerp(savedMovementVelocity, _velocity, movementSmooth * Time.fixedDeltaTime);
+                }
             }
 
             return _velocity;
@@ -502,8 +508,11 @@ namespace CMF
         {
             if (currentControllerState == ControllerState.Grounded)
             {
-                if ((Time.time - currentJumpEndTime) > 0.5f)
-                    countJumps = 0;
+                if ((Time.time - currentJumpEndTime) > 0.2f && countJumps > 0)
+                {
+                    currentJumpEndTime = Time.time;
+                    countJumps--;
+                }
 
                 if ((jumpKeyIsPressed == true || jumpKeyWasPressed || jumpMoblie) && !jumpInputIsLocked)
                 {
@@ -517,6 +526,17 @@ namespace CMF
                     {
                         countJumps = Mathf.Clamp(countJumps + 1, 0, 5);
                     }
+                }
+            }
+            else if (isOverlapping)
+            {
+                if (isOverlapping.isOverlapping && currentControllerState == ControllerState.Falling && (jumpKeyIsPressed == true || jumpKeyWasPressed || jumpMoblie) && !jumpInputIsLocked)
+                {
+                    //Call events;
+                    OnGroundContactLost();
+                    OnJumpStart();
+
+                    currentControllerState = ControllerState.Jumping;
                 }
             }
         }
@@ -550,17 +570,18 @@ namespace CMF
 			//Manipulate momentum to steer controller in the air (if controller is not grounded or sliding);
 			if(!IsGrounded())
 			{
-				Vector3 _movementVelocity = CalculateMovementVelocity();
+                //Vector3 _movementVelocity = CalculateMovementVelocity();
+                Vector3 _movementVelocity = CalculateMovementDirection();
 
-				//If controller has received additional momentum from somewhere else;
-				if(_horizontalMomentum.magnitude > movementSpeed)
+                //If controller has received additional momentum from somewhere else;
+                if (_horizontalMomentum.magnitude > movementSpeed)
 				{
 					//Prevent unwanted accumulation of speed in the direction of the current momentum;
 					if(VectorMath.GetDotProduct(_movementVelocity, _horizontalMomentum.normalized) > 0f)
 						_movementVelocity = VectorMath.RemoveDotVector(_movementVelocity, _horizontalMomentum.normalized);
 					
 					//Lower air control slightly with a multiplier to add some 'weight' to any momentum applied to the controller;
-					float _airControlMultiplier = 0.25f;
+					float _airControlMultiplier = 1f;
 					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate * _airControlMultiplier;
                 }
 				//If controller has not received additional momentum;
@@ -569,9 +590,8 @@ namespace CMF
 					//Clamp _horizontal velocity to prevent accumulation of speed;
 					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
 					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed);
-                    
                 }
-			}
+            }
 
 			//Steer controller on slopes;
 			if(currentControllerState == ControllerState.Sliding)
