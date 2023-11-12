@@ -12,8 +12,8 @@ public class PlayerRespawn : MonoBehaviour
 
     public Animator BlackBorders_anim;
 
-
-    [HideInInspector] public Vector3 startPos;
+    public bool needSetStartPosOnStart = true;
+    public Vector3 startPos;
     [HideInInspector] public string lastCheckpoint = "null";
 
 
@@ -69,7 +69,8 @@ public class PlayerRespawn : MonoBehaviour
         advancedWalkerController = GetComponent<AdvancedWalkerController>();
         startSpeed = advancedWalkerController.movementSpeed;
 
-        startPos = transform.position;
+        if (needSetStartPosOnStart)
+            startPos = transform.position;
 
         if (playButton)
         {

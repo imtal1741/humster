@@ -8,14 +8,18 @@ public class BikeRotations : MonoBehaviour
     [Header("Main Links")]
     public TurnTowardControllerVelocity turnTowardControllerVelocity;
     public AdvancedWalkerController advancedWalkerController;
+    Controller controller;
 
     [Header("Audio")]
     public AudioSource source;
+    public AudioSource wheelSource;
     public AudioClip wheelsSound;
+    public AudioClip jumpSound;
 
     [Header("Other Transform Settings")]
     public Transform[] pedalRoot;
     public Transform[] pedal;
+    public IsOverlapping FaceTrigger;
 
     [Header("Wheels Settings")]
     public LayerMask ignoreLayer;
@@ -44,6 +48,9 @@ public class BikeRotations : MonoBehaviour
 
     void Start()
     {
+        controller = advancedWalkerController.GetComponent<Controller>();
+        controller.OnJump += OnJump;
+
         startMovSpeed = advancedWalkerController.movementSpeed;
 
         wheelsHitPoint = new Vector3[Wheels.Length];
@@ -113,7 +120,7 @@ public class BikeRotations : MonoBehaviour
 
     void RotateWheel()
     {
-        Vector3 tempVelocity = advancedWalkerController.GetVelocity();
+        Vector3 tempVelocity = advancedWalkerController.GetVelocity() * (FaceTrigger.isOverlapping ? 0.5f : 1f);
         float speed = new Vector3(tempVelocity.x, 0, tempVelocity.z).magnitude;
         currentRotation += speed * WheelsSpeed;
 
@@ -151,13 +158,20 @@ public class BikeRotations : MonoBehaviour
 
             float pitchValue = Mathf.Clamp(speed / 10 + 1, 0, 2.5f);
 
-            source.pitch = pitchValue;
-            source.volume = 1 - ((pitchValue - 1) / 4);
-            source.PlayOneShot(wheelsSound);
+            wheelSource.pitch = pitchValue;
+            wheelSource.volume = 1 - ((pitchValue - 1) / 4);
+            wheelSource.PlayOneShot(wheelsSound);
         }
 
 
 
+    }
+
+
+    void OnJump(Vector3 _v)
+    {
+        //Play jump audio clip;
+        source.PlayOneShot(jumpSound, 0.5f);
     }
 
 }

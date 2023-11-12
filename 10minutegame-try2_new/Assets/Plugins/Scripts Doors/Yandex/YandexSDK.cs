@@ -174,13 +174,13 @@ public class YandexSDK : MonoBehaviour
             Screen.orientation = ScreenOrientation.Portrait;
 
 
-        GetDeviceSDK(); // Get Device       нужно включить
+        //GetDeviceSDK(); // Get Device       нужно включить
         //GetDeviceSimple();
 
-        GetDomainSite(); //                 нужно включить
+        //GetDomainSite(); //                 нужно включить
 
         SetPlayerInfo();
-        GetLang();
+        //GetLang();
 
         //LoadExtern();
 

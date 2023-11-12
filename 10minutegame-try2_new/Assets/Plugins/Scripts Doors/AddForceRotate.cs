@@ -19,11 +19,15 @@ public class AddForceRotate : MonoBehaviour
     public RotationAxis currentRotationAxis = RotationAxis.x;
     public RotationDirection currentRotationDirection = RotationDirection.forward;
 
+
+    public float kickPower;
+    public AudioSource source;
+    public AudioClip kickSound;
+
     AdvancedWalkerController advancedWalkerController;
     float lastRot;
     float dir;
     Vector3 resultMomentum;
-    public float kickPower;
 
     void FixedUpdate()
     {
@@ -66,10 +70,12 @@ public class AddForceRotate : MonoBehaviour
 
             rotDir = -rotDir * kickPower;
             resultMomentum = new Vector3(rotDir.x, 0, rotDir.z);
-            Debug.Log(resultMomentum);
 
             advancedWalkerController.OnJumpInertia();
             advancedWalkerController.AddMomentum(resultMomentum);
+
+            if (source)
+                source.PlayOneShot(kickSound, 0.5f);
         }
     }
 

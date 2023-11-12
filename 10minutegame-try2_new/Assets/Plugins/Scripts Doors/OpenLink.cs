@@ -9,9 +9,9 @@ public class OpenLink : MonoBehaviour
     [HideInInspector] public string domainName;
     [HideInInspector] public string langName = "ru";
 
-    public void OpenURL(string link)
+    public void OpenURL(string gameId)
     {
-        Application.OpenURL("https://yandex." + domainName + link + "?lang=" + langName);
+        Application.OpenURL("https://yandex." + domainName + "/games/" + langName + "/app/" + gameId + "?lang=" + langName);
     }
 
 

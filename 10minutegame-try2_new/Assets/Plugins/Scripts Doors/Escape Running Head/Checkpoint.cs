@@ -7,6 +7,8 @@ public class Checkpoint : MonoBehaviour
 
     public TimerDestroy timerDestroy;
 
+    public bool deactiveOnTrigger;
+
 
     void OnTriggerEnter(Collider c)
     {
@@ -20,7 +22,10 @@ public class Checkpoint : MonoBehaviour
                 timerDestroy.ActivateDestroy();
         }
 
-        Destroy(gameObject);
+        if (deactiveOnTrigger)
+            gameObject.SetActive(false);
+        else
+            Destroy(gameObject);
     }
 
 

@@ -87,7 +87,7 @@ public class FP_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
 		return handleOffset;
 	}
 	
-	private void Start()
+	private void Awake()
 	{
         canvasGroup = GetComponent ("CanvasGroup") as CanvasGroup;
 		_returnHandle = true;

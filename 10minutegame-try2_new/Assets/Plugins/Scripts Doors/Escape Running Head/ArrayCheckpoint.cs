@@ -13,6 +13,7 @@ public class ArrayCheckpoint : MonoBehaviour
     public Material oldPicture;
     public Material newPicture;
     public Transform Arrow;
+    public GameObject StartCheckpoint;
 
     public Slider progressBar;
     public TextMeshProUGUI progressText;
@@ -22,13 +23,13 @@ public class ArrayCheckpoint : MonoBehaviour
     [HideInInspector] public int nowCheckpoints;
     int maxCheckpoints;
 
-    void Start()
-    {
-        maxCheckpoints = checkpoints.Count;
-        progressBar.maxValue = maxCheckpoints;
+    //void Awake()
+    //{
+    //    maxCheckpoints = checkpoints.Count;
+    //    progressBar.maxValue = maxCheckpoints;
 
-        UpdateArrow(false);
-    }
+    //    //UpdateArrow(false);
+    //}
 
     public void UpdateArrow(bool withSave)
     {
@@ -43,6 +44,9 @@ public class ArrayCheckpoint : MonoBehaviour
 
         if (withSave)
         {
+            if (PlayerPrefs.GetInt("Upgrade_1") == 0)
+                if (PlayerPrefs.GetInt("Score") != nowCheckpoints)
+                    Debug.Log(nowCheckpoints);
             PlayerPrefs.SetInt("Score", nowCheckpoints);
             PlayerPrefs.Save();
         }
@@ -52,6 +56,8 @@ public class ArrayCheckpoint : MonoBehaviour
 
     public void ResetCheckpoints()
     {
+        StartCheckpoint.SetActive(true);
+
         for (int i = 0; i < maxCheckpoints; i++)
         {
             checkpoints[i].used = false;
@@ -69,6 +75,12 @@ public class ArrayCheckpoint : MonoBehaviour
 
     void SetProgressBar()
     {
+        if (maxCheckpoints == 0)
+        {
+            maxCheckpoints = checkpoints.Count;
+            progressBar.maxValue = maxCheckpoints;
+        }
+
         int x = (int)(nowCheckpoints / (maxCheckpoints / 10f)) + 1;
 
         if (x > 10)

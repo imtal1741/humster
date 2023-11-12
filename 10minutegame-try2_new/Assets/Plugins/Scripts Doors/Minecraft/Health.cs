@@ -219,10 +219,11 @@ public class Health : MonoBehaviour
 
         ArrayCheckpoint arrayCheckpoint = GetComponent<ArrayCheckpoint>();
         Transform teleportTr;
-        if (arrayCheckpoint.checkpoints.Count == x)
+        if (PlayerPrefs.GetInt("Upgrade_1") == 1 && arrayCheckpoint.checkpoints.Count == x)
         {
             arrayCheckpoint.checkpoints[x - 1].Activate();
             teleportTr = arrayCheckpoint.FinishPoint;
+            GetComponent<PlayerRespawn>().SetCheckpoint(teleportTr.position, "FinishPoint");
         }
         else
         {
@@ -233,6 +234,14 @@ public class Health : MonoBehaviour
     }
     public IEnumerator TeleportIE(Transform point)
     {
+        // Try wait Initilization
+        if (rb == null || advancedWalkerController == null)
+            yield return new WaitForSecondsRealtime(0.5f);
+
+        if (rb == null || advancedWalkerController == null)
+            yield return new WaitForSecondsRealtime(0.5f);
+
+
         rb.interpolation = RigidbodyInterpolation.None;
         advancedWalkerController.momentum = Vector3.zero;
         transform.position = point.position;

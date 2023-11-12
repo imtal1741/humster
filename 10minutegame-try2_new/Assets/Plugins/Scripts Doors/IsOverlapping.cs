@@ -14,16 +14,19 @@ public class IsOverlapping : MonoBehaviour
         }
     }
 
-    // Count how many colliders are overlapping this trigger.
-    // If desired, you can filter here by tag, attached components, etc.
-    // so that only certain collisions count. Physics layers help too.
     void OnTriggerEnter(Collider other)
     {
+        if (other.isTrigger)
+            return;
+
         _overlaps++;
     }
 
     void OnTriggerExit(Collider other)
     {
+        if (other.isTrigger)
+            return;
+
         _overlaps--;
     }
 }

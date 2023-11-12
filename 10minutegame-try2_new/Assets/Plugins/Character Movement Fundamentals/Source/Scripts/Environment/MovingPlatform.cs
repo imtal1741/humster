@@ -37,9 +37,12 @@ namespace CMF
 			triggerArea = GetComponentInChildren<TriggerArea>();
 
 			//Disable gravity, freeze rotation of rigidbody and set to kinematic;
-			r.freezeRotation = true;
-			r.useGravity = false;
-			r.isKinematic = true;
+            if (r)
+            {
+                r.freezeRotation = true;
+                r.useGravity = false;
+                r.isKinematic = true;
+            }
 
 			//Check if any waypoints have been assigned and if not, throw a warning;
 			if(waypoints.Count <= 0){
@@ -87,12 +90,12 @@ namespace CMF
 			//Else, move toward next waypoint;
 			if(_movement.magnitude >= _toCurrentWaypoint.magnitude || _movement.magnitude == 0f)
 			{
-				r.transform.position = currentWaypoint.position;
+				transform.position = currentWaypoint.position;
 				UpdateWaypoint();
 			}
 			else
 			{
-				r.transform.position += _movement;
+				transform.position += _movement;
 			}
 
 			if(triggerArea == null)
