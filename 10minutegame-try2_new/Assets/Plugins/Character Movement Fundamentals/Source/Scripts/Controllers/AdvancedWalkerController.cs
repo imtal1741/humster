@@ -799,8 +799,8 @@ namespace CMF
 			return savedMovementVelocity;
 		}
 
-		//Get current momentum;
-		public Vector3 GetMomentum()
+        //Get current momentum;
+        public Vector3 GetMomentum()
 		{
 			Vector3 _worldMomentum = momentum;
 			if(useLocalMomentum)

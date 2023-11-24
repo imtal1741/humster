@@ -44,7 +44,7 @@ namespace CMF
 
 		void LateUpdate () {
 
-			//Get controller velocity;
+            //Get controller velocity;
             Vector3 _velocity;
 			if(ignoreControllerMomentum)
 				_velocity = controller.GetMovementVelocity();
