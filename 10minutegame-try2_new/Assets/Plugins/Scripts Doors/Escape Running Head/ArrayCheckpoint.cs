@@ -23,13 +23,10 @@ public class ArrayCheckpoint : MonoBehaviour
     [HideInInspector] public int nowCheckpoints;
     int maxCheckpoints;
 
-    //void Awake()
-    //{
-    //    maxCheckpoints = checkpoints.Count;
-    //    progressBar.maxValue = maxCheckpoints;
-
-    //    //UpdateArrow(false);
-    //}
+    void Awake()
+    {
+        ResetCheckpoints();
+    }
 
     public void UpdateArrow(bool withSave)
     {

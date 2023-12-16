@@ -11,7 +11,8 @@ public class OpenLink : MonoBehaviour
 
     public void OpenURL(string gameId)
     {
-        Application.OpenURL("https://yandex." + domainName + "/games/" + langName + "/app/" + gameId + "?lang=" + langName);
+        Application.OpenURL("https://yandex." + domainName + "/games/app/" + gameId + "?lang=" + langName);
+        //Application.OpenURL("https://yandex." + domainName + "/games/" + langName + "/app/" + gameId + "?lang=" + langName);
     }
 
 

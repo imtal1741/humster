@@ -72,6 +72,7 @@ public class YandexSDK : MonoBehaviour
 
     [Header("Try Show Adv On Start")]
     public bool showAdvOnStart;
+    public GameObject advertTimerGameObject;
     public TextMeshProUGUI advertTimer;
     bool advertTimerActive;
 
@@ -174,19 +175,19 @@ public class YandexSDK : MonoBehaviour
             Screen.orientation = ScreenOrientation.Portrait;
 
 
-        //GetDeviceSDK(); // Get Device       нужно включить
+        GetDeviceSDK(); // Get Device       нужно включить
         //GetDeviceSimple();
 
-        //GetDomainSite(); //                 нужно включить
+        GetDomainSite(); //                 нужно включить
 
         SetPlayerInfo();
-        //GetLang();
+        GetLang(); //                 нужно включить
 
         //LoadExtern();
 
-        if (advertTimer)
+        if (advertTimerGameObject)
         {
-            advertTimer.gameObject.SetActive(false);
+            advertTimerGameObject.SetActive(false);
             advertTimerActive = false;
         }
 
@@ -339,7 +340,7 @@ public class YandexSDK : MonoBehaviour
     {
         if (Time.time >= nextAdv)
         {
-            nextAdv = Time.time + 60;
+            nextAdv = Time.time + 90;
             if (playerRespawn)
                 playerRespawn.Pause();
 
@@ -355,7 +356,7 @@ public class YandexSDK : MonoBehaviour
     }
     public void ShowAdvertTimer()
     {
-        if (advertTimer == null)
+        if (advertTimerGameObject == null)
             return;
 
         if (advertTimerActive)
@@ -373,18 +374,28 @@ public class YandexSDK : MonoBehaviour
     }
     IEnumerator StartAdvertTimer()
     {
-        advertTimer.gameObject.SetActive(true);
-        advertTimer.text = "5";
-        yield return new WaitForSeconds(1f);
-        advertTimer.text = "4";
-        yield return new WaitForSeconds(1f);
+        if (playerRespawn)
+            playerRespawn.PauseSimple();
+        advertTimerGameObject.SetActive(true);
         advertTimer.text = "3";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimer.text = "3.";
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimer.text = "3..";
+        yield return new WaitForSecondsRealtime(0.3f);
         advertTimer.text = "2";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimer.text = "2.";
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimer.text = "2..";
+        yield return new WaitForSecondsRealtime(0.3f);
         advertTimer.text = "1";
-        yield return new WaitForSeconds(1f);
-        advertTimer.gameObject.SetActive(false);
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimer.text = "1.";
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimer.text = "1..";
+        yield return new WaitForSecondsRealtime(0.3f);
+        advertTimerGameObject.SetActive(false);
         ShowAdvertSimple();
         advertTimerActive = false;
     }

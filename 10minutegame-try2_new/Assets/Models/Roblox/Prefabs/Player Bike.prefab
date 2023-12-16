@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 3112413438608447869}
   - component: {fileID: 7637960971509891796}
   m_Layer: 5
-  m_Name: AdvertTimer
+  m_Name: AdvertTimerDigits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,17 +561,17 @@ RectTransform:
   m_GameObject: {fileID: 855439303482177476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2033142, y: 1.2033142, z: 1.2033142}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8716458763938139000}
-  m_Father: {fileID: 7214436346396539858}
+  m_Father: {fileID: 5608793466268601148}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -285.9981, y: 148.24771}
-  m_SizeDelta: {x: 365.4431, y: 85.4051}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000010251999, y: 0.000030517578}
+  m_SizeDelta: {x: 1595.6, y: 897.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3112413438608447869
 CanvasRenderer:
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 37a8486572eaa024ba05d64fcc662d8f, type: 2}
   m_sharedMaterial: {fileID: -7409399259345426619, guid: 37a8486572eaa024ba05d64fcc662d8f,
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_fontSizeMin: 4
   m_fontSizeMax: 60
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -896,6 +896,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overlaps: 0
+--- !u!1 &1405680659120538009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5608793466268601148}
+  - component: {fileID: 5699877306848985166}
+  - component: {fileID: 8461189944095931365}
+  m_Layer: 5
+  m_Name: AdvertTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5608793466268601148
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405680659120538009}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2033142, y: 1.2033142, z: 1.2033142}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3854191908613026320}
+  m_Father: {fileID: 7214436346396539858}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1595.6, y: 897.52}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5699877306848985166
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405680659120538009}
+  m_CullTransparentMesh: 1
+--- !u!114 &8461189944095931365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405680659120538009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.23529412}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1422388366489598844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,10 +1385,10 @@ RectTransform:
   m_Father: {fileID: 3854191908613026320}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -199.7509, y: 93.702545}
-  m_SizeDelta: {x: 399.499, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 93.702545}
+  m_SizeDelta: {x: 401.64, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &633967181617842059
 CanvasRenderer:
@@ -1370,14 +1447,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.6
+  m_fontSize: 39.8
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 4
   m_fontSizeMax: 60
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1768,7 +1845,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2aeecdb1760fb974e832c7d9680fcf6f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: effdb648b9c9f6d4287b0dfe48d9f72f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1831,7 +1908,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: /games/app/240398
+          m_StringArgument: 240398
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1946560808209773090
@@ -1845,6 +1922,7 @@ GameObject:
   - component: {fileID: 3400052196475154969}
   - component: {fileID: 2492320926838021012}
   - component: {fileID: 9049563677184947869}
+  - component: {fileID: 4347485381459002864}
   m_Layer: 0
   m_Name: YandexSDK
   m_TagString: Untagged
@@ -1933,6 +2011,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   applicationName: ParkourInPrison
+--- !u!114 &4347485381459002864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946560808209773090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7b82b1248c84e468b83ba7fb3f14a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ApiKey: b1aace99-fbbe-453f-9819-2c755435ca18
+  ExceptionsReporting: 1
+  SessionTimeoutSec: 10
+  LocationTracking: 0
+  Logs: 0
+  HandleFirstActivationAsUpdate: 0
+  StatisticsSending: 1
 --- !u!1 &2009529201016047226
 GameObject:
   m_ObjectHideFlags: 0
@@ -4095,7 +4192,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: /games/app/203902
+          m_StringArgument: 203902
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &4135518624859651917
@@ -4627,8 +4724,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7089730626690579701}
-  - {fileID: 649751230835205372}
   - {fileID: 8229471348340450647}
+  - {fileID: 649751230835205372}
   - {fileID: 6192928036518290851}
   m_Father: {fileID: 7214436346396539858}
   m_RootOrder: 8
@@ -4755,7 +4852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlackBorders_anim: {fileID: 5986090181599412340}
-  startPos: {x: 0, y: 0, z: 0}
+  needSetStartPosOnStart: 0
+  startPos: {x: -0.696, y: 1.69, z: 12.7}
   lastCheckpoint: null
   GameIsPaused: 0
   isMobile: 0
@@ -4859,7 +4957,7 @@ MonoBehaviour:
   LedgeVector: {x: 0.14504668, y: 0.98893636, z: -0.03108534}
   LedgeAngle: 0.77138084
   lastTransform: {fileID: 0}
-  movementSpeed: 13
+  movementSpeed: 18
   moveSmooth: 1
   moveSmoothDamp: 1
   movementSmooth: 0.65
@@ -5065,6 +5163,7 @@ MonoBehaviour:
   oldPicture: {fileID: 2100000, guid: 9a483b30e1273d24f9b8fa8da9271fb3, type: 2}
   newPicture: {fileID: 2100000, guid: 8b7ae2ae51eeb084b91325790838ba6c, type: 2}
   Arrow: {fileID: 0}
+  StartCheckpoint: {fileID: 0}
   progressBar: {fileID: 2006188658236121302}
   progressText: {fileID: 6734566365691559942}
   yandexSDK: {fileID: 2492320926838021012}
@@ -6357,7 +6456,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: /games/app/228246
+          m_StringArgument: 228246
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6326288871205184163
@@ -7182,7 +7281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7489983553017051466
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7294,7 +7393,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: /games/app/218329
+          m_StringArgument: 218329
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &7093356154265376989
@@ -7337,7 +7436,7 @@ RectTransform:
   - {fileID: 7130987795396586050}
   - {fileID: 6988316969510499062}
   - {fileID: 579540330051859209}
-  - {fileID: 3854191908613026320}
+  - {fileID: 5608793466268601148}
   - {fileID: 4322988848165622896}
   m_Father: {fileID: 1120859368789257414}
   m_RootOrder: -1
