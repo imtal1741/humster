@@ -27,7 +27,6 @@ public class AgentMover : MonoBehaviour
     private void Start()
     {
         _Agent.autoTraverseOffMeshLink = false;
-        _Agent.updateRotation = false;
 
         OnSpeedChanged += _agentAnimation.SetSpeed;
         OnStartJump.AddListener(_agentAnimation.Jump);

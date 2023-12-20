@@ -344,8 +344,13 @@ namespace CMF
 			UpdateRotation();
 		}
 
-		//Rotate the camera toward a rotation that points at a world position in the scene;
-		public void RotateTowardPosition(Vector3 _position, float _lookSpeed)
+        public void LookAtObject(Transform obj)
+        {
+            cam.transform.LookAt(obj);
+        }
+
+        //Rotate the camera toward a rotation that points at a world position in the scene;
+        public void RotateTowardPosition(Vector3 _position, float _lookSpeed)
 		{
 			//Calculate target look vector;
 			Vector3 _direction = (_position - tr.position);

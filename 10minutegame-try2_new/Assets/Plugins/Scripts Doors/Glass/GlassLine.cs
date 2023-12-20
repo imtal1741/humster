@@ -16,7 +16,7 @@ public class GlassLine : MonoBehaviour
 
     void Start()
     {
-        MeshRenderer mr = GetComponent<MeshRenderer>();
+        MeshRenderer mr = glasses[trueGlass].GetComponent<MeshRenderer>();
         trueGlassCenter = mr.bounds.center;
         trueGlassBounds = mr.bounds.extents;
     }

@@ -25,7 +25,7 @@ public class BreakGlassTrigger : MonoBehaviour
         AgentGlassLogic agentGlassLogic = other.GetComponent<AgentGlassLogic>();
         if (agentGlassLogic)
         {
-            agentGlassLogic.Dead();
+            agentGlassLogic.Dead(3f);
         }
 
         if (meshRenderer.enabled)

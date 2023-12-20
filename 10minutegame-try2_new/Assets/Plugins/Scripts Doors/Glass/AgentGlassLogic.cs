@@ -8,19 +8,22 @@ public class AgentGlassLogic : MonoBehaviour
 {
 
     public AgentMover agentMover;
-    Vector3 startPos;
+    public Transform player;
+    public float maxDistanceToPlayer = 15f;
+    public Transform startPos;
     NavMeshAgent navMeshAgent;
     Animator anim;
     [HideInInspector] public bool moveDown = false;
     public bool waitColab = false;
+    public bool goPortal = false;
 
     NavMeshPath path;
     bool lastPathIsRandom;
 
     public GlassLineManager glassLineManager;
     public GlassLine lastGlassLine;
-    public List<GlassLine> memoryGlassLine = new List<GlassLine>();
-    public List<int> memoryInt = new List<int>();
+    List<GlassLine> memoryGlassLine = new List<GlassLine>();
+    List<int> memoryInt = new List<int>();
 
 
     public Transform EndObject;
@@ -30,7 +33,6 @@ public class AgentGlassLogic : MonoBehaviour
     void Start()
     {
         path = new NavMeshPath();
-        startPos = transform.position;
         navMeshAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -41,6 +43,11 @@ public class AgentGlassLogic : MonoBehaviour
         if (moveDown)
             transform.Translate(Vector3.down * 3f * Time.deltaTime, Space.World);
 
+        if (goPortal)
+        {
+            // Set Destination portal
+            agentMover.SetDestination(EndObject.position);
+        }
 
         // just debug
         if (path.corners.Length > 0)
@@ -52,17 +59,44 @@ public class AgentGlassLogic : MonoBehaviour
 
     private IEnumerator ChoicePath()
     {
+        navMeshAgent.updateRotation = false;
+
         yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
 
 
-        //if (lastGlassLine)
-        //{
-        //    if (lastGlassLine == glassLineManager.glassLines[glassLineManager.glassLines.Count - 1])
-        //    {
-        //        // Set Destination portal
-        //        //return;
-        //    }
-        //}
+        if (lastGlassLine)
+        {
+            if (lastGlassLine == glassLineManager.glassLines[glassLineManager.glassLines.Count - 1])
+            {
+                // Set Destination portal
+                navMeshAgent.updateRotation = true;
+                goPortal = true;
+
+                this.TryStopCoroutine(ref choicePathCoroutine);
+                yield return null;
+            }
+        }
+
+        int indexNextGlass = glassLineManager.glassLines.IndexOf(lastGlassLine) + 1;
+
+        if ((player.position - transform.position).magnitude > maxDistanceToPlayer && Random.Range(0, 100) < 50)
+        {
+            navMeshAgent.updateRotation = true;
+            GlassLine gl = glassLineManager.glassLines[indexNextGlass];
+            Vector3 fakeGlassPos = Vector3.zero;
+            for (int i = 0; i < gl.glasses.Length; i++)
+            {
+                if (gl.trueGlass != i)
+                {
+                    fakeGlassPos = gl.glasses[i].position;
+                    break;
+                }
+            }
+            agentMover.SetDestination(fakeGlassPos);
+
+            this.TryStopCoroutine(ref choicePathCoroutine);
+            yield return null;
+        }
 
 
         //Check visible bots on next glass
@@ -73,20 +107,18 @@ public class AgentGlassLogic : MonoBehaviour
                 UpdateMemory(glassLineManager.glassLines[0]);
             }
         }
-        else
+        else if (!memoryGlassLine.Contains(glassLineManager.glassLines[indexNextGlass]))
         {
-            int index = glassLineManager.glassLines.IndexOf(lastGlassLine) + 1;
-
-            if (glassLineManager.glassLines[index].lastKnownTime + 5 > Time.time)
+            if (glassLineManager.glassLines[indexNextGlass].lastKnownTime + 5 > Time.time)
             {
-                UpdateMemory(glassLineManager.glassLines[index]);
+                UpdateMemory(glassLineManager.glassLines[indexNextGlass]);
             }
             else
             {
                 if (waitColab == false)
                 {
                     waitColab = true;
-                    yield return new WaitForSeconds(Random.Range(2f, 5f));
+                    yield return new WaitForSeconds(Random.Range(1f, 3f));
                     this.RestartCoroutine(ChoicePath(), ref choicePathCoroutine);
                     yield return null;
                 }
@@ -128,60 +160,28 @@ public class AgentGlassLogic : MonoBehaviour
             }
         }
 
-        Debug.Log("Complete Path");
+        yield return new WaitForSeconds(Random.Range(1f, 1.8f));
 
 
-        int r = Random.Range(0, 100);
-        if (r < 50)
+        if (Random.Range(0, 100) < 66)
         {
             // move
             if (lastGlassLine)
             {
-                float rfactor = Random.Range(-0.8f, 0.8f);
+                float rfactor = Random.Range(-0.5f, 0.5f);
                 Vector3 target = lastGlassLine.trueGlassCenter + (lastGlassLine.trueGlassBounds * rfactor);
-
-                if (Random.Range(0, 100) < 50)
-                {
-                    Vector3 targetPosToRot = new Vector3(target.x, transform.position.y, target.z);
-                    transform.DOLookAt(targetPosToRot, 0.3f);
-                    yield return new WaitForSeconds(Random.Range(0.2f, 0.3f));
-                }
-
 
                 agentMover.SetDestination(target);
             }
         }
-        else if (r < 75)
+
+        if (Random.Range(0, 100) < 33)
         {
             // jump
             anim.SetTrigger("Jump");
         }
-        else if (r < 90)
-        {
-            // look other
-
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 4);
-            foreach (var hitCollider in hitColliders)
-            {
-                AgentGlassLogic otherAgent = hitCollider.GetComponent<AgentGlassLogic>();
-                if (otherAgent)
-                {
-                    Vector3 target = otherAgent.transform.position;
-                    Vector3 targetPosToRot = new Vector3(target.x, transform.position.y, target.z);
-                    transform.DOLookAt(targetPosToRot, 0.3f);
-                    yield return new WaitForSeconds(Random.Range(0.6f, 1.2f));
-                    target = EndObject.position;
-                    targetPosToRot = new Vector3(target.x, transform.position.y, target.z);
-                    transform.DOLookAt(targetPosToRot, 0.3f);
-                    yield return new WaitForSeconds(0.3f);
-                    break;
-                }
-            }
-        }
 
 
-        // Wait after jump
-        yield return new WaitForSeconds(0.4f);
 
         this.RestartCoroutine(ChoicePath(), ref choicePathCoroutine);
 
@@ -238,11 +238,11 @@ public class AgentGlassLogic : MonoBehaviour
     }
 
 
-    public void Dead()
+    public void Dead(float delay)
     {
-        StartCoroutine(Dead_IE());
+        StartCoroutine(Dead_IE(delay));
     }
-    private IEnumerator Dead_IE()
+    private IEnumerator Dead_IE(float delay)
     {
         this.TryStopCoroutine(ref choicePathCoroutine);
         if (navMeshAgent.isOnOffMeshLink)
@@ -251,8 +251,9 @@ public class AgentGlassLogic : MonoBehaviour
         }
         navMeshAgent.enabled = false;
         moveDown = true;
+        goPortal = false;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(delay);
 
         Respawn();
     }
@@ -261,7 +262,7 @@ public class AgentGlassLogic : MonoBehaviour
         moveDown = false;
         waitColab = false;
         lastGlassLine = null;
-        transform.position = startPos;
+        transform.position = startPos.position;
         navMeshAgent.enabled = true;
 
         this.RestartCoroutine(ChoicePath(), ref choicePathCoroutine);
