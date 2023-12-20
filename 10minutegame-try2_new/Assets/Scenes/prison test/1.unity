@@ -630,7 +630,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02b1be3eb69b030478e0c6f596ceadea, type: 2}
+  - {fileID: 2100000, guid: d89a7f2c359465045818cafac55418f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -876,7 +876,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02b1be3eb69b030478e0c6f596ceadea, type: 2}
+  - {fileID: 2100000, guid: d89a7f2c359465045818cafac55418f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1514,18 +1514,6 @@ MonoBehaviour:
     onConversationStart:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3479674567867040482}
-          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-          m_MethodName: set_enabled
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 1056075083}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
@@ -1542,9 +1530,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3479674567867040482}
-          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-          m_MethodName: set_enabled
-          m_Mode: 6
+          m_TargetAssemblyTypeName: CMF.CameraControllerPro, Assembly-CSharp-firstpass
+          m_MethodName: RotateZero
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1680,7 +1668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132007803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.95, y: 3.3726, z: 8.814}
+  m_LocalPosition: {x: 3.95, y: 3.3726, z: 8.2}
   m_LocalScale: {x: 1.7504, y: 2.1576, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1952,7 +1940,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 29ea02b4dea4dfe42a38e89b688070b4, type: 2}
+  - {fileID: 2100000, guid: d89a7f2c359465045818cafac55418f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7593,6 +7581,7 @@ MonoBehaviour:
   CameraRoot: {fileID: 3115812325082219503}
   coinsManager: {fileID: 0}
   audioEffects: {fileID: 3355408553348454647}
+  playerModelVisual: {fileID: 831525114342677464}
   advancedWalkerController: {fileID: 2454407554976690665}
   currentXAngle: 0
   currentYAngle: 0

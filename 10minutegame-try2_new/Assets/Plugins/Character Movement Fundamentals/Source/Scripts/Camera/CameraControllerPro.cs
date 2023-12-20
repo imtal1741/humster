@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 namespace CMF
 {
@@ -20,6 +21,7 @@ namespace CMF
 
         public CoinsManager coinsManager;
         public AudioEffects audioEffects;
+        public GameObject playerModelVisual;
         public AdvancedWalkerController advancedWalkerController;
         //[HideInInspector] public AdvancedWalkerController advancedWalkerController;
         PlayerRespawn playerRespawn;
@@ -103,6 +105,8 @@ namespace CMF
 
         bool isInteractMobile;
 
+        bool locked = false;
+
 
         //Setup references.
         void Awake () {
@@ -139,6 +143,9 @@ namespace CMF
 
         void Update()
 		{
+            if (locked)
+                return;
+
 			HandleCameraRotation();
 
 
@@ -346,7 +353,15 @@ namespace CMF
 
         public void LookAtObject(Transform obj)
         {
-            cam.transform.LookAt(obj);
+            locked = true;
+            playerModelVisual.SetActive(false);
+            cam.transform.DOLookAt(obj.position, 1);
+        }
+
+        public void RotateZero()
+        {
+            cam.transform.DOLocalRotate(Vector3.zero, 1).OnComplete(() => playerModelVisual.SetActive(true));
+            locked = false;
         }
 
         //Rotate the camera toward a rotation that points at a world position in the scene;
