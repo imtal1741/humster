@@ -354,13 +354,20 @@ namespace CMF
         public void LookAtObject(Transform obj)
         {
             locked = true;
-            playerModelVisual.SetActive(false);
+            if (playerModelVisual)
+                playerModelVisual.SetActive(false);
             cam.transform.DOLookAt(obj.position, 1);
         }
 
         public void RotateZero()
         {
-            cam.transform.DOLocalRotate(Vector3.zero, 1).OnComplete(() => playerModelVisual.SetActive(true));
+            cam.transform.DOLocalRotate(Vector3.zero, 1).OnComplete(Unlock);
+            locked = false;
+        }
+        void Unlock()
+        {
+            if (playerModelVisual)
+                playerModelVisual.SetActive(true);
             locked = false;
         }
 
