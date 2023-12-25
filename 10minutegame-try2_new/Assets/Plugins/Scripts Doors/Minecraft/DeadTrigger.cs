@@ -12,7 +12,7 @@ public class DeadTrigger : MonoBehaviour
     }
     public TagCheck currentTagCheck = TagCheck.Player;
 
-    [Header("If Shooter")]
+    [Header("If need show respawn menu")]
     public bool doDead;
 
     [Header("If doDead == false. Restart Scene or not")]
@@ -25,7 +25,7 @@ public class DeadTrigger : MonoBehaviour
             Health health = other.gameObject.GetComponent<Health>();
 
             if (!health)
-                health = other.transform.parent.GetComponent<Health>();
+                health = other.GetComponentInParent<Health>();
 
             if (!health)
                 return;

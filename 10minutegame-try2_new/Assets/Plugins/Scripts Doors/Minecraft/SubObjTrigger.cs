@@ -13,10 +13,10 @@ public class SubObjTrigger : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Foot"))
         {
             if (!rb)
-                rb = other.GetComponent<Rigidbody>();
+                rb = other.transform.parent.GetComponentInParent<Rigidbody>();
 
             if (radiusFactor != 0)
             {

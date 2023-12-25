@@ -7,6 +7,7 @@ public class SetActiveOnTrigger : MonoBehaviour
 {
 
     public GameObject InstantiatePrefab;
+    public Transform InstantiateSpawnPoint;
     public List<GameObject> EnableObjects = new List<GameObject>();
     public List<GameObject> DisableObjects = new List<GameObject>();
     public UnityEvent m_Event;
@@ -14,6 +15,16 @@ public class SetActiveOnTrigger : MonoBehaviour
     public AudioClip clip;
 
     bool used;
+
+    void Start()
+    {
+        if (source)
+            return;
+
+        AudioSource camSource = Camera.main.GetComponent<AudioSource>();
+        if (camSource)
+            source = camSource;
+    }
 
     void OnTriggerEnter(Collider c)
     {
@@ -25,12 +36,13 @@ public class SetActiveOnTrigger : MonoBehaviour
             used = true;
 
             if (InstantiatePrefab)
-                Instantiate(InstantiatePrefab, transform.position, transform.rotation);
+                Instantiate(InstantiatePrefab, InstantiateSpawnPoint.position, InstantiateSpawnPoint.rotation);
 
             if (m_Event != null)
                 m_Event.Invoke();
 
-            source.PlayOneShot(clip);
+            if (source)
+                source.PlayOneShot(clip);
 
             for (int i = 0; i < EnableObjects.Count; i++)
             {

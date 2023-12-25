@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 838709128712779837}
   - component: {fileID: 838709128712779838}
   - component: {fileID: 838709128712779839}
-  - component: {fileID: 838709128712779832}
+  - component: {fileID: 497660872019599402}
   m_Layer: 0
   m_Name: Circle Left
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &838709128712779779
 Animator:
@@ -144,10 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c04156ecf93a4458bbe259422b1c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radiusFactor: -2.9
+  radiusFactor: -1.5
   moveFactor: 0
---- !u!136 &838709128712779832
-CapsuleCollider:
+--- !u!64 &497660872019599402
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -164,8 +164,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.95000005
-  m_Height: 1
-  m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7714551314467887396, guid: 2ec58480dc68cc843a43730f519be58b, type: 3}

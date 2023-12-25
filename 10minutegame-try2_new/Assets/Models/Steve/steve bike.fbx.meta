@@ -24,7 +24,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -81,7 +81,62 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: steve bike(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Foot L
+      parentName: steve bike(Clone)
+      position: {x: 12.102898, y: 43.23718, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Arm R
+      parentName: steve bike(Clone)
+      position: {x: -31.242197, y: 94.20656, z: 0}
+      rotation: {x: -0.000000053385083, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 99.999725, y: 100, z: 100}
+    - name: Foot R
+      parentName: steve bike(Clone)
+      position: {x: -12.102898, y: 43.23718, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Arm L
+      parentName: steve bike(Clone)
+      position: {x: 31.242197, y: 94.20656, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Body
+      parentName: steve bike(Clone)
+      position: {x: -0, y: 44.3485, z: 0}
+      rotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Head
+      parentName: steve bike(Clone)
+      position: {x: -0, y: 96.18068, z: 0}
+      rotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Hand R
+      parentName: steve bike(Clone)
+      position: {x: -31.133497, y: 62.4554, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Hand L
+      parentName: steve bike(Clone)
+      position: {x: 31.133497, y: 62.4554, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Foot 2 R
+      parentName: steve bike(Clone)
+      position: {x: -12.102898, y: 0.7145404, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Foot 2 L
+      parentName: steve bike(Clone)
+      position: {x: 12.102898, y: 0.7145404, z: 0}
+      rotation: {x: -0.00000005338508, y: 0.7071069, z: -0.7071067, w: 0.000000053385072}
+      scale: {x: 100, y: 100, z: 100}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -89,10 +144,10 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.099999994
+    globalScale: 10
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1

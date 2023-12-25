@@ -12,20 +12,23 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.gameObject.CompareTag("Player"))
+        if (c.gameObject.CompareTag("Foot"))
         {
-            PlayerRespawn playerRespawn = c.gameObject.GetComponent<PlayerRespawn>();
+            PlayerRespawn playerRespawn = c.GetComponentInParent<PlayerRespawn>();
+
+            if (!playerRespawn)
+                return;
 
             playerRespawn.SetCheckpoint(transform.position, gameObject.name);
 
             if (timerDestroy)
                 timerDestroy.ActivateDestroy();
-        }
 
-        if (deactiveOnTrigger)
-            gameObject.SetActive(false);
-        else
-            Destroy(gameObject);
+            if (deactiveOnTrigger)
+                gameObject.SetActive(false);
+            else
+                Destroy(gameObject);
+        }
     }
 
 

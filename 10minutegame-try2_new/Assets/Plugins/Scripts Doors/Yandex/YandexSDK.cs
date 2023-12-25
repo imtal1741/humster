@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Runtime.InteropServices;
 using Lean.Localization;
+using PixelCrushers.DialogueSystem;
 using TMPro;
 //using CrazyGames;
 
@@ -175,13 +176,13 @@ public class YandexSDK : MonoBehaviour
             Screen.orientation = ScreenOrientation.Portrait;
 
 
-        GetDeviceSDK(); // Get Device       нужно включить
+        //GetDeviceSDK(); // Get Device       нужно включить
         //GetDeviceSimple();
 
-        GetDomainSite(); //                 нужно включить
+        //GetDomainSite(); //                 нужно включить
 
         SetPlayerInfo();
-        GetLang(); //                 нужно включить
+        //GetLang(); //                 нужно включить
 
         //LoadExtern();
 
@@ -330,6 +331,7 @@ public class YandexSDK : MonoBehaviour
 			if (shortLang.Contains(lang))
 				leanLocalization.SetCurrentLanguage(longName[shortLang.IndexOf(lang)]);
 		}
+        DialogueManager.SetLanguage(lang);
         if (openLink)
             openLink.langName = lang;
     }
