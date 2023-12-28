@@ -7,14 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UltraBlack
-  m_Shader: {fileID: 4800000, guid: 7cd5de0b884b14f88ab763ef465e1799, type: 3}
+  m_Name: Wall 1
+  m_Shader: {fileID: 4800000, guid: 0135a65e0e2534542b7b6d16acf75acd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _GLOSSYREFLECTIONS_OFF
-  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -46,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1d19ddfe8a7d20f4b88e84be320ab5e7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -72,34 +70,35 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 0
-    - _Glossiness: 0.146
-    - _GlossyReflections: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.768
+    - _GlossyReflections: 1
     - _Lumin: 0
     - _MaxLight: 1
     - _Metallic: 0
-    - _MinLight: 1
+    - _MinLight: 0.9
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Offset: 0
-    - _OtlWidth: 0.76
     - _Parallax: 0.02
     - _Segmented: 0
     - _ShnIntense: 0
     - _ShnOverlap: 0
-    - _ShnRange: 0.1
-    - _ShnSmooth: 1
-    - _SmoothnessTextureChannel: 1
+    - _ShnRange: 0.15
+    - _ShnSmooth: 0
+    - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Steps: 5
-    - _StpSmooth: 1
+    - _Steps: 3
+    - _StpSmooth: 0
+    - _TextureScale: 0.35
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.09433961, g: 0.085149534, b: 0.08232466, a: 1}
+    - _AmbientColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAdd: {r: 1, g: 1, b: 1, a: 1}
+    - _DarkColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OtlColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShnColor: {r: 30.209375, g: 30.209375, b: 30.209375, a: 1}
+    - _ShnColor: {r: 1, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
