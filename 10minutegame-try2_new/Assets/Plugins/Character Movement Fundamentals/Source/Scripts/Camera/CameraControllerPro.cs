@@ -22,6 +22,8 @@ namespace CMF
         public CoinsManager coinsManager;
         public AudioEffects audioEffects;
         public GameObject playerModelVisual;
+        public GameObject crosshair;
+        float savedFov;
         public AdvancedWalkerController advancedWalkerController;
         //[HideInInspector] public AdvancedWalkerController advancedWalkerController;
         PlayerRespawn playerRespawn;
@@ -123,6 +125,9 @@ namespace CMF
 			//If no camera component has been attached to this gameobject, search the transform's children;
 			if(cam == null)
 				cam = GetComponentInChildren<Camera>();
+
+            if (cam)
+                savedFov = cam.fieldOfView;
 
             //Set angle variables to current rotation angles of this transform;
             currentXAngle = tr.localRotation.eulerAngles.x;
@@ -336,10 +341,10 @@ namespace CMF
         }
 
 		//Set the camera's field-of-view (FOV);
-		public void SetFOV(float _fov)
+		public void SetFOV(float _fov, float duration)
 		{
 			if(cam)
-				cam.fieldOfView = _fov;	
+                cam.DOFieldOfView(_fov, duration);	
 		}
 
 		//Set x and y angle directly;
@@ -356,12 +361,20 @@ namespace CMF
             locked = true;
             if (playerModelVisual)
                 playerModelVisual.SetActive(false);
+            if (crosshair)
+                crosshair.SetActive(false);
+            advancedWalkerController.movementLocked = true;
+            SetFOV(savedFov - 20, 1.5f);
             cam.transform.DOLookAt(obj.position, 1);
         }
 
         public void RotateZero()
         {
             cam.transform.DOLocalRotate(Vector3.zero, 1).OnComplete(Unlock);
+            if (crosshair)
+                crosshair.SetActive(true);
+            advancedWalkerController.movementLocked = false;
+            SetFOV(savedFov, 1);
             locked = false;
         }
         void Unlock()

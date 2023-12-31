@@ -8,22 +8,22 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Prison_woman head
-  m_Shader: {fileID: 4800000, guid: 1f53b2e079258874d987bc2948630b78, type: 3}
+  m_Shader: {fileID: 4800000, guid: 9c55d9c42d1a5824fb85189d12a19091, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _DETAILSOURCE_SPECULARALPHA
-  - _SOURCE_SPECULARALPHA
-  - _TRIPLANARSPACEPROJECTION_OBJECTSPACE
+  m_ValidKeywords: []
   m_InvalidKeywords:
+  - _DETAILSOURCE_SPECULARALPHA
   - _ENABLETRIPLANARPROJECTION_ON
   - _GLOSSYREFLECTIONS_OFF
+  - _SOURCE_SPECULARALPHA
   - _SPECULARHIGHLIGHTS_OFF
+  - _TRIPLANARSPACEPROJECTION_OBJECTSPACE
   - _USEBASECOLORALPHA_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -58,7 +58,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -82,7 +90,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ShadowOffset:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TranslucencyMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -108,10 +124,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AO: 0
     - _AlphaClip: 0
     - _AlwaysOnTop: 0
     - _AmbientCol: 0
     - _AoIntensity: 1
+    - _BaseLight: 0
     - _Blend: 0
     - _BlendMainNormal: 0
     - _BlendmodeOverlay: 0
@@ -125,9 +143,11 @@ Material:
     - _ColIntense: 1
     - _ColIntenseAdd: 1
     - _ColorIntenseAdd: 0
+    - _ColorMask: 15
     - _ContrastDetailMap: 0
     - _ContrastTransparentMap: 0
     - _Cull: 0
+    - _CullMode: 0
     - _Cutoff: 0.5
     - _Damage: 0
     - _DetailAlbedoMapScale: 1
@@ -142,10 +162,13 @@ Material:
     - _EnableDetailMask: 0
     - _EnableTriplanarProjection: 1
     - _EnvironmentReflections: 1
+    - _FaceDilate: 0
+    - _FlipNormals: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossinessSource: 0
     - _GlossyReflections: 0
+    - _GradientScale: 5
     - _IntensityCutoutMap: 0.5
     - _IntensityMask: 1
     - _IntensityTransparentMap: 0
@@ -155,18 +178,31 @@ Material:
     - _InvertMask: 0
     - _InvertTransparent: 0
     - _Lumin: 0
+    - _MaskSoftnessX: 0
+    - _MaskSoftnessY: 0
     - _MaxLight: 1
     - _Metallic: 0
     - _MinLight: 0.85
     - _Mode: 0
+    - _Occlusion: 0
     - _OcclusionStrength: 1
     - _Offset: 0
+    - _OutlineSoftness: 0
+    - _OutlineWidth: 0
     - _Parallax: 0.005
+    - _PerspectiveFilter: 0.875
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Saturation: 0
+    - _ScaleRatioA: 1
+    - _ScaleRatioB: 1
+    - _ScaleRatioC: 1
+    - _ScaleX: 1
+    - _ScaleY: 1
     - _Segmented: 0
-    - _Shininess: 0
+    - _ShaderFlags: 0
+    - _Sharpness: 0
+    - _Shininess: 0.1
     - _ShnIntense: 0.075
     - _ShnOverlap: 0
     - _ShnRange: 0.15
@@ -181,17 +217,34 @@ Material:
     - _SpecularIntensity: 0.2
     - _SpreadDetailMap: 0
     - _SpreadTransparentMap: 0
+    - _SquashAmount: 1
     - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _Steps: 3
     - _StpSmooth: 0
     - _Surface: 0
+    - _TextureHeight: 512
+    - _TextureWidth: 512
     - _TriplanarFalloff: 20
     - _TriplanarSpaceProjection: 0
     - _UVSec: 0
+    - _UnderlayDilate: 0
+    - _UnderlayOffsetX: 0
+    - _UnderlayOffsetY: 0
+    - _UnderlaySoftness: 0
     - _UseAoFromMainProperties: 0
     - _UseBaseColorAlpha: 1
     - _UseEmissionFromMainProperties: 0
+    - _VertexOffsetX: 0
+    - _VertexOffsetY: 0
     - _VisualizeMask: 0
+    - _WeightBold: 0.5
+    - _WeightNormal: 0
+    - _WindQuality: 0
     - _WorkflowMode: 1
     - _ZTest: 2
     - _ZWrite: 1
@@ -199,19 +252,27 @@ Material:
     - __dirty: 1
     m_Colors:
     - _BaseColor: {r: 0.45490196, g: 0.5647059, b: 0.2509804, a: 1}
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAdd: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 0}
     - _DetailSpecularColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlobalXYTilingXYZWOffsetXY: {r: 1, g: 1, b: 0, a: 0}
     - _HighlightColor: {r: 1, g: 1, b: 0.965, a: 1}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _ShnColor: {r: 1, g: 1, b: 0.8915094, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
     - _TriplanarXYTilingXYZWOffsetXY: {r: 1, g: 1, b: 0, a: 0}
     - _TriplanarXYTilingXYZWOffsetXY1: {r: 1, g: 1, b: 0, a: 0}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
 --- !u!114 &8007225711195237555
 MonoBehaviour:

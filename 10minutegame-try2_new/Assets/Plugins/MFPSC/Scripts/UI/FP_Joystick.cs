@@ -56,7 +56,7 @@ public class FP_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
 	void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
 	{
 		pressed = false;
-        transform.position = startPos;
+        transform.localPosition = startPos;
         touchZone.SetActive(true);
         _returnHandle = true;
 		if (OnEndJoystickMovement != null)
@@ -93,7 +93,7 @@ public class FP_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
 		_returnHandle = true;
 		var touchZoneJoystick = GetComponent("RectTransform") as RectTransform;
         touchZoneJoystick.pivot = Vector2.one * 0.5F;
-        startPos = touchZoneJoystick.position;
+        startPos = touchZoneJoystick.localPosition;
         //stick.transform.SetParent(transform);
         //var curTransform = transform;
         //do
@@ -159,7 +159,7 @@ public class FP_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     void OnDisable()
     {
         pressed = false;
-        transform.position = startPos;
+        transform.localPosition = startPos;
         touchZone.SetActive(true);
         _returnHandle = true;
         if (OnEndJoystickMovement != null)

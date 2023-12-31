@@ -186,6 +186,8 @@ public class YandexSDK : MonoBehaviour
 
         //LoadExtern();
 
+        SetLang("ru");
+
         if (advertTimerGameObject)
         {
             advertTimerGameObject.SetActive(false);

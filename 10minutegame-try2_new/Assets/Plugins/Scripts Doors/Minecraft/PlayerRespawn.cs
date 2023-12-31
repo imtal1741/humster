@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 using System.Runtime.InteropServices;
 using CMF;
+using PixelCrushers.DialogueSystem;
 
 public class PlayerRespawn : MonoBehaviour
 {
@@ -84,7 +85,7 @@ public class PlayerRespawn : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && health.health > 0)
+        if (Input.GetKeyDown(KeyCode.Escape) && health.health > 0 && DialogueManager.IsConversationActive == false)
         {
             if (playButton.activeSelf) return;
 

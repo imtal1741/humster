@@ -65,7 +65,7 @@
             struct v2f
             {
                 LIGHTING_COORDS(0,1)
-                UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(3)
                 float2 uv : TEXCOORD0;
                 float4 pos : SV_POSITION;
                 float3 worldNormal : NORMAL;

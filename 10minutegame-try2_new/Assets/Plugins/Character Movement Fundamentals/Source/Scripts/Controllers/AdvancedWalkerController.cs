@@ -83,6 +83,7 @@ namespace CMF
         [HideInInspector] public float inputY;
         [HideInInspector] public float limitedInputX;
         [HideInInspector] public float limitedInputY;
+        [HideInInspector] public bool movementLocked = false;
 
         //Amount of downward gravity;
         public float gravity = 30f;
@@ -215,8 +216,8 @@ namespace CMF
 
             if (anim)
             {
-                movX = Mathf.Lerp(movX, limitedInputX, Time.fixedDeltaTime * 5f);
-                movY = Mathf.Lerp(movY, limitedInputY, Time.fixedDeltaTime * 5f);
+                movX = Mathf.Lerp(movX, limitedInputX, Time.fixedDeltaTime * 25f);
+                movY = Mathf.Lerp(movY, limitedInputY, Time.fixedDeltaTime * 25f);
 
                 anim.SetFloat("horizontal", movX);
                 anim.SetFloat("vertical", movY);
@@ -290,8 +291,12 @@ namespace CMF
 		//This function can be overridden by inheriting scripts to implement different player controls;
 		protected virtual Vector3 CalculateMovementDirection()
 		{
-			//If no character input script is attached to this object, return;
-			if(characterInput == null)
+            if (movementLocked == true)
+                return Vector3.zero;
+
+
+            //If no character input script is attached to this object, return;
+            if (characterInput == null)
 				return Vector3.zero;
 
 			Vector3 _velocity = Vector3.zero;
