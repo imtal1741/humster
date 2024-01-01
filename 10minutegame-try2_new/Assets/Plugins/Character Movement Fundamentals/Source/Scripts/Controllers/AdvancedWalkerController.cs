@@ -52,6 +52,7 @@ namespace CMF
         //How fast the controller can change direction while in the air;
         //Higher values result in more air control;
         public float airControlRate = 2f;
+        public float airSpeedMultiplayer = 1f;
 
         public bool canJump = true;
         public IsOverlapping isOverlapping;
@@ -592,9 +593,9 @@ namespace CMF
 				//If controller has not received additional momentum;
 				else
 				{
-					//Clamp _horizontal velocity to prevent accumulation of speed;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
-					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed);
+                    //Clamp _horizontal velocity to prevent accumulation of speed;
+                    _horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
+					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed * airSpeedMultiplayer);
                 }
             }
 

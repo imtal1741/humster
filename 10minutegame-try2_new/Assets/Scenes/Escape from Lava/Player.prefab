@@ -5117,6 +5117,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 446222131731702399}
+  - component: {fileID: 7580635906843319039}
+  - component: {fileID: 8557427838617224262}
+  - component: {fileID: 6391839124987713114}
   m_Layer: 0
   m_Name: Bone.014_end
   m_TagString: Untagged
@@ -5131,7 +5134,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3685327698716769365}
-  m_LocalRotation: {x: -0.030281767, y: -0.02866218, z: -0.019121265, w: 0.99894744}
+  m_LocalRotation: {x: -0.03097004, y: -0.051852904, z: -0.035873473, w: 0.99752957}
   m_LocalPosition: {x: 1.7763567e-16, y: 0.013472919, z: 2.440459e-11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5139,6 +5142,80 @@ Transform:
   m_Father: {fileID: 1832998549843011590}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7580635906843319039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685327698716769365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac8f0b54715d23428eda5c95e5f6fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 7616124772560580629}
+  audioClipVolume: 0.446
+  relativeRandomizedVolumeRange: 0.5
+  footStepClips:
+  - {fileID: 8300000, guid: da75d02df69fa9a48b601d0f24726542, type: 3}
+  - {fileID: 8300000, guid: ec814eaba9a41ee49ad43bfdbf8b2463, type: 3}
+  - {fileID: 8300000, guid: 9dbc5df2ae43fed478b5cc52d70b119d, type: 3}
+  - {fileID: 8300000, guid: e6ef42980888a3a4c88b0d8bbc027eba, type: 3}
+  - {fileID: 8300000, guid: 7411e1ebea400a34895e83ac9dd99c48, type: 3}
+  - {fileID: 8300000, guid: a819aa8db7128bf419ab4146d24ffe53, type: 3}
+  - {fileID: 8300000, guid: 3c5cc18f6f335614684ed4a646769b2f, type: 3}
+  ignoreTags:
+  - Player
+  - Foot
+--- !u!65 &8557427838617224262
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685327698716769365}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.001, y: 0.0035707653, z: 0.001}
+  m_Center: {x: 0.00028267832, y: 0.0020620986, z: -0.000048773287}
+--- !u!54 &6391839124987713114
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685327698716769365}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3787939098015978622
 GameObject:
   m_ObjectHideFlags: 0
@@ -7635,6 +7712,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4961909777135343568}
+  - component: {fileID: 8991527332990163475}
+  - component: {fileID: 2713573766086441695}
+  - component: {fileID: 3531775217713299048}
   m_Layer: 0
   m_Name: Bone.017_end
   m_TagString: Untagged
@@ -7657,6 +7737,80 @@ Transform:
   m_Father: {fileID: 7026661907908061115}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8991527332990163475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969536887010603332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac8f0b54715d23428eda5c95e5f6fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 7616124772560580629}
+  audioClipVolume: 0.446
+  relativeRandomizedVolumeRange: 0.5
+  footStepClips:
+  - {fileID: 8300000, guid: da75d02df69fa9a48b601d0f24726542, type: 3}
+  - {fileID: 8300000, guid: ec814eaba9a41ee49ad43bfdbf8b2463, type: 3}
+  - {fileID: 8300000, guid: 9dbc5df2ae43fed478b5cc52d70b119d, type: 3}
+  - {fileID: 8300000, guid: e6ef42980888a3a4c88b0d8bbc027eba, type: 3}
+  - {fileID: 8300000, guid: 7411e1ebea400a34895e83ac9dd99c48, type: 3}
+  - {fileID: 8300000, guid: a819aa8db7128bf419ab4146d24ffe53, type: 3}
+  - {fileID: 8300000, guid: 3c5cc18f6f335614684ed4a646769b2f, type: 3}
+  ignoreTags:
+  - Player
+  - Foot
+--- !u!65 &2713573766086441695
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969536887010603332}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.001, y: 0.0035707653, z: 0.001}
+  m_Center: {x: 0.00028267832, y: 0.0020620986, z: -0.000048773287}
+--- !u!54 &3531775217713299048
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969536887010603332}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5991567960609460516
 GameObject:
   m_ObjectHideFlags: 0
@@ -8526,7 +8680,6 @@ GameObject:
   - component: {fileID: 5117846965422637638}
   - component: {fileID: 3772570842329267241}
   - component: {fileID: 3598324599356575850}
-  - component: {fileID: 6885014918870477043}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Player
@@ -8542,7 +8695,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6780231413508183119}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.52, y: 2.314, z: 3.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8800,27 +8953,6 @@ MonoBehaviour:
   ceilingAngleLimit: 10
   ceilingDetectionMethod: 0
   isInDebugMode: 0
---- !u!114 &6885014918870477043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6780231413508183119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d296f3412ce1434a84b75a9a8ec966e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 7616124772560580629}
-  useAnimationBasedFootsteps: 0
-  landVelocityThreshold: 5
-  footstepDistance: 0.2
-  audioClipVolume: 0.1
-  relativeRandomizedVolumeRange: 0.2
-  footStepClips: []
-  jumpClip: {fileID: 0}
-  landClip: {fileID: 0}
 --- !u!1 &6813382399515328787
 GameObject:
   m_ObjectHideFlags: 0
@@ -12078,6 +12210,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: displaySettings.subtitleSettings.minSubtitleSeconds
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.inputSettings.cancelConversation.key
       value: 0
       objectReference: {fileID: 0}
@@ -12091,7 +12227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.subtitleSettings.subtitleCharsPerSecond
-      value: 17
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: displaySettings.subtitleSettings.skipPCSubtitleAfterResponseMenu
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6193717574850487428, guid: 58ac37417e60e534f91138088a3e6f70,
         type: 3}
