@@ -8526,6 +8526,7 @@ GameObject:
   - component: {fileID: 5117846965422637638}
   - component: {fileID: 3772570842329267241}
   - component: {fileID: 3598324599356575850}
+  - component: {fileID: 6885014918870477043}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Player
@@ -8710,6 +8711,7 @@ MonoBehaviour:
   inputY: 0
   limitedInputX: 0
   limitedInputY: 0
+  movementLocked: 0
   gravity: 38
   slideGravity: 10
   slopeLimit: 80
@@ -8798,6 +8800,27 @@ MonoBehaviour:
   ceilingAngleLimit: 10
   ceilingDetectionMethod: 0
   isInDebugMode: 0
+--- !u!114 &6885014918870477043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6780231413508183119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d296f3412ce1434a84b75a9a8ec966e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 7616124772560580629}
+  useAnimationBasedFootsteps: 0
+  landVelocityThreshold: 5
+  footstepDistance: 0.2
+  audioClipVolume: 0.1
+  relativeRandomizedVolumeRange: 0.2
+  footStepClips: []
+  jumpClip: {fileID: 0}
+  landClip: {fileID: 0}
 --- !u!1 &6813382399515328787
 GameObject:
   m_ObjectHideFlags: 0
